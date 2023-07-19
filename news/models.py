@@ -1,9 +1,13 @@
 from django.db import models
 
 import datetime
-# Create your models here.
+
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 class News(models.Model):
+    owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=1024)
     full = models.TextField()

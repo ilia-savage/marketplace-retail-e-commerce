@@ -1,3 +1,5 @@
+import jwt, datetime
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
@@ -5,12 +7,17 @@ from rest_framework.status import HTTP_200_OK
 
 from .serializers import UserSerializer
 from .models import User
-import jwt, datetime
+from .auth import get_user
 
 class RegisterView(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    authentication_classes = ()
+
     def post(self, request):
         data = {}
         serializer = UserSerializer(data=request.data)
+
         if serializer.is_valid(raise_exception=True):
             data = serializer.validated_data
             serializer.save()
@@ -18,7 +25,12 @@ class RegisterView(APIView):
         data.pop('password')
         return Response(data)
     
+
 class LoginView(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    authentication_classes = ()
+
     def post(self, request):
         email = request.data['username']
         password = request.data['password']
@@ -42,29 +54,22 @@ class LoginView(APIView):
             'message': 'success'
         }
         response.set_cookie(key='jwt', value=token, httponly=True)
-        
         return response
 
 
 class UserView(APIView):
     def get(self, request):
-        token = request.COOKIES.get('jwt')
-
-        if not token:
-            raise AuthenticationFailed('Unauthenticated')
-        
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise  AuthenticationFailed('Unauthenticated')
-        
+        payload = get_user(request=request)
         user = User.objects.filter(id=payload['id']).first()
         serializer = UserSerializer(user)
-        
         return Response(serializer.data)
     
 
 class LogoutView(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    authentication_classes = ()
+
     def post(self, request):
         response = Response()
         response.delete_cookie('jwt')

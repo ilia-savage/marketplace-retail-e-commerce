@@ -2,9 +2,13 @@ from django.db import models
 
 # Create your models here.
 from category.models import Category
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 
 class Product(models.Model):
+    owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(verbose_name="Name", max_length=255)
     category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
     description = models.TextField(max_length=1024)
