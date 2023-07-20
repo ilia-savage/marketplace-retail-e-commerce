@@ -1,3 +1,4 @@
 -product, news, review fields gotta have a user field
 -products are visible to unauthenticated users but can be updated or deleted only by owners.
 -admin must be able to modify all models
+-provide api for Review model

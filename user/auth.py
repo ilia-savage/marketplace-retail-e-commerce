@@ -11,7 +11,7 @@ class JSONWebTokenAuthentication(BaseAuthentication):
     def authenticate(self, request):
         try:
             payload = jwt.decode(request.COOKIES.get('jwt'), 'secret', algorithms='HS256')
-            print(payload)
+            # print(payload)
             user = User.objects.get(id=payload['id'])
         except (jwt.DecodeError, User.DoesNotExist):
             raise exceptions.AuthenticationFailed('Invalid token')

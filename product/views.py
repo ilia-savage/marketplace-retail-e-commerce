@@ -3,16 +3,20 @@ from rest_framework import permissions
 
 from .models import Product
 from .serializers import ProductSerializer
-from .permissions import HasModifyPermission
+from api.permissions import HasModifyPermission
 
 from user.auth import get_user
 from user.models import User
 
-
-class ProductListCreateAPIView(generics.ListCreateAPIView):
+class ProductListAPIView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # authentication_classes = ()
+    authentication_classes = ()
+
+
+class ProductCreateAPIView(generics.CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
     '''
     Overriding create method to check if the user is authenticated
