@@ -1,13 +1,18 @@
-import jwt, datetime
+import datetime, os
+
+import jwt
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.status import HTTP_200_OK
+from django.conf import settings
 
 from .serializers import UserSerializer
 from .models import User
 from .auth import get_user
+
+
 
 class RegisterView(APIView):
     throttle_classes = ()
@@ -47,8 +52,8 @@ class LoginView(APIView):
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat': datetime.datetime.utcnow()
         }
-
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        print(os.getenv('SECRET'))
+        token = jwt.encode(payload, settings.SECRET, algorithm='HS256')
         print(token)
 
         response = Response()
