@@ -5,7 +5,10 @@ from user.auth import get_user
 from user.models import User
 from .serializers import ReviewSerializer
 from api.permissions import HasModifyPermission
+from api.exceptions import ObjectAlreadyExists
+
 from product.models import Product
+
 
 
 class ReviewListAPIView(generics.ListAPIView):
@@ -38,6 +41,13 @@ class ReviewCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         payload = get_user(self.request)
         user = User.objects.get(id=payload['id'])
+        
+        """
+        Checks if a review already exists for a particular product created
+        by authenticated user
+        """
+        if user.review_set.filter(product=self.request.data['product']):
+            raise ObjectAlreadyExists
         return serializer.save(owner=user)
 
 
