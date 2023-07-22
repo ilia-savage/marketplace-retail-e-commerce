@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from rest_framework import generics
 from rest_framework import permissions
 
@@ -8,7 +9,16 @@ from api.permissions import HasModifyPermission
 from user.auth import get_user
 from user.models import User
 
+
 class ProductListAPIView(generics.ListAPIView):
+    queryset = Product.objects.all().prefetch_related(
+        Prefetch('owner', queryset=User.objects.all().only(
+            'id', 'username', 'name', 'last_name')))
+    serializer_class = ProductSerializer
+    authentication_classes = ()
+
+
+class ProductRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     authentication_classes = ()

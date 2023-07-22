@@ -1,11 +1,9 @@
 from rest_framework import generics
-
 from .models import News
 from user.auth import get_user
 from user.models import User
 from .serializers import NewsSerializer
 from api.permissions import HasModifyPermission
-
 
 
 class NewsListAPIView(generics.ListAPIView):

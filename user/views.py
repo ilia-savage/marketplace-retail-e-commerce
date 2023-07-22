@@ -13,7 +13,6 @@ from .models import User
 from .auth import get_user
 
 
-
 class RegisterView(APIView):
     throttle_classes = ()
     permission_classes = ()
@@ -52,7 +51,6 @@ class LoginView(APIView):
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat': datetime.datetime.utcnow()
         }
-        print(os.getenv('SECRET'))
         token = jwt.encode(payload, settings.SECRET, algorithm='HS256')
         print(token)
 
