@@ -1,4 +1,12 @@
 services:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_DB=dbname
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=pass
+    command: postgres -c max_connections=200
+
   web-app:
     build:
       context: .
@@ -12,14 +20,6 @@ services:
       - DB_USER=dbuser
       - DB_PASS=pass
     command:
-      sh -c "python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000"
+      sh -c "python -u manage.py runserver 0.0.0.0:8000"
     depends_on:
       - database
-
-  database:
-    image: postgres:15.3-alpine
-    environment:
-      - POSTGRES_DB=dbname
-      - POSTGRES_USER=dbuser
-      - POSTGRES_PASSWORD=pass

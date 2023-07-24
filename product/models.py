@@ -12,6 +12,7 @@ class Product(models.Model):
     name = models.CharField(verbose_name="Name", max_length=255)
     category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
     description = models.TextField(max_length=1024)
+    discount = models.PositiveIntegerField(default=0)
     price = models.DecimalField(max_digits=20, decimal_places=2)
     image = models.ImageField(null=True, blank=True)
 

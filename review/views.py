@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from rest_framework import generics
 
 from .models import Review
@@ -12,7 +13,10 @@ from product.models import Product
 
 
 class ReviewListAPIView(generics.ListAPIView):
-    queryset = Review.objects.all()
+    queryset = Review.objects.all().prefetch_related(
+        'product',
+        'owner'
+    )
     serializer_class = ReviewSerializer
     lookup_field = 'pk'
     authentication_classes = ()
@@ -33,7 +37,6 @@ class ReviewListAPIView(generics.ListAPIView):
 
 
 class ReviewCreateAPIView(generics.CreateAPIView):
-    queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     '''
     Overriding create method to check if the user is authenticated
@@ -52,13 +55,13 @@ class ReviewCreateAPIView(generics.CreateAPIView):
 
 
 class ReviewUpdateAPIView(generics.UpdateAPIView):
-    queryset = Review.objects.all()
+    queryset = Review.objects.all().select_related('owner', 'product')
     serializer_class = ReviewSerializer
     lookup_field = 'pk'
     permission_classes = [HasModifyPermission]
 
 
 class ReviewDestroyAPIView(generics.DestroyAPIView):
-    queryset = Review.objects.all()
+    queryset = Review.objects.all().select_related('owner', 'product')
     serializer_class = ReviewSerializer
     permission_classes = [HasModifyPermission]

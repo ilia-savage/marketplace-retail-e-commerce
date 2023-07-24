@@ -2,6 +2,9 @@ import datetime, os
 
 import jwt
 
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
@@ -21,11 +24,19 @@ class RegisterView(APIView):
     def post(self, request):
         data = {}
         serializer = UserSerializer(data=request.data)
-
         if serializer.is_valid(raise_exception=True):
             data = serializer.validated_data
-            serializer.save()
+            serializer.save(is_active=False)
 
+        user = User.objects.get(username=data['username'])
+        confirmation_token = default_token_generator.make_token(user)
+        send_mail(
+            "ILTECH - Email verification",
+            f"http://127.0.0.1:8000/api/v1/activate/?id={user.id}&token={confirmation_token}",
+            'settings.EMAIL_HOST_USER',
+            ['andreewandre2@gmail.com'],
+            fail_silently=False
+        )         
         data.pop('password')
         return Response(data)
     
@@ -43,6 +54,10 @@ class LoginView(APIView):
 
         if (user is None) or (not user.check_password(password)):
             raise AuthenticationFailed("Incorrect email or password")
+        
+        print(user.is_active)
+        if user.is_active == False:
+            raise AuthenticationFailed("User is not verified")
         
         payload = {
             'id': user.id,
@@ -82,3 +97,8 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
+
+
+class Activate(APIView):
+
+    pass 

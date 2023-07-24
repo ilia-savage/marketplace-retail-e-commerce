@@ -40,7 +40,7 @@ class ProductCreateAPIView(generics.CreateAPIView):
 
 
 class ProductUpdateAPIView(generics.UpdateAPIView):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().select_related('owner')
     serializer_class = ProductSerializer
     permission_classes = [HasModifyPermission]
 
@@ -53,7 +53,7 @@ class ProductUpdateAPIView(generics.UpdateAPIView):
 
 
 class ProductDestroyAPIView(generics.DestroyAPIView):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().select_related('owner')
     serializer_class = ProductSerializer
     permission_classes = [HasModifyPermission]
 
