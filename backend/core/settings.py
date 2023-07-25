@@ -13,13 +13,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import environ, os
 
+from django.core.exceptions import ImproperlyConfigured
+
 env = environ.Env()
 environ.Env.read_env()
 
-SECRET = env("SECRET")
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+try:
+    SECRET = env("SECRET", "default")
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = env("EMAIL_HOST_USER", "default")
+    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", "default")
+except ImproperlyConfigured:
+    print('.env file not found')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
