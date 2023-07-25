@@ -9,11 +9,11 @@ services:
 
   web-app:
     build:
-      context: .
+      context: ./backend
     ports:
       - "8000:8000"
     volumes:
-      - ./:/usr/src/app
+      - ./backend:/usr/src/app
     environment:
       - DB_HOST=database
       - DB_NAME=dbname
@@ -25,18 +25,24 @@ services:
     depends_on:
       - database
 
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8080:8080"
+
   redis:
     image: redis:7.0.5-alpine
     hostname: redis
 
   worker:
     build: 
-      context: .
+      context: ./backend
     hostname: worker
     entrypoint: celery
     command: -A celery_app.app worker --loglevel=info
     volumes:
-      - ./:/usr/src/app
+      - ./backend:/usr/src/app
     links:
       - redis
     depends_on:
@@ -51,12 +57,12 @@ services:
 
   flower:
     build:
-      context: .
+      context: ./backend
     hostname: flower
     entrypoint: celery
     command: -A celery_app.app flower
     volumes:
-      - ./:/usr/src/app
+      - ./backend:/usr/src/app
     links:
       - redis
     depends_on:

@@ -13,3 +13,4 @@ class ReviewSerializer(serializers.ModelSerializer):
             'product',
             'rating'
         ]
+        
