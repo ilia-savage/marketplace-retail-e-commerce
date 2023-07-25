@@ -2,3 +2,6 @@
 -products are visible to unauthenticated users but can be updated or deleted only by owners.
 -admin must be able to modify all models
 -provide api for Review model
+
+
+- create is_verified field in user and delete unverified users every now and then with celery tasks

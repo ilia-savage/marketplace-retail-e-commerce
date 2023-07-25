@@ -18,6 +18,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'name',
             'category',
             'description',
+            'specs',
             'discount',
             'price',
             'image',
@@ -25,8 +26,5 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
     def get_final_price(self, instance):
-        print(instance.price - (
-            instance.price * decimal.Decimal(instance.discount / 100)))
-        
         return floor(instance.price - (
             instance.price * decimal.Decimal((instance.discount / 100))))

@@ -5,15 +5,17 @@ import jwt
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.conf import settings
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.status import HTTP_200_OK
-from django.conf import settings
 
 from .serializers import UserSerializer
 from .models import User
 from .auth import get_user
+from .tasks import send_email
 
 
 class RegisterView(APIView):
@@ -30,13 +32,12 @@ class RegisterView(APIView):
 
         user = User.objects.get(username=data['username'])
         confirmation_token = default_token_generator.make_token(user)
-        send_mail(
-            "ILTECH - Email verification",
-            f"http://127.0.0.1:8000/api/v1/activate/?id={user.id}&token={confirmation_token}",
-            'settings.EMAIL_HOST_USER',
-            ['andreewandre2@gmail.com'],
-            fail_silently=False
-        )         
+
+        subject = "ILTECH - Email verification"
+        message = f"http://127.0.0.1:8000/api/v1/activate/?id={user.id}&token={confirmation_token}"
+
+        send_email.delay(subject, message)
+
         data.pop('password')
         return Response(data)
     
@@ -100,5 +101,26 @@ class LogoutView(APIView):
 
 
 class Activate(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    authentication_classes = ()
 
-    pass 
+    def get(self, request):
+        id = request.query_params.get('id')
+        token = request.query_params.get('token')
+
+        try:
+            user = User.objects.get(id=id)
+        except(TypeError, ValueError, OverflowError, AttributeError, User.DoesNotExist):
+            user = None
+        
+        if user != None and user.is_active:
+            return Response('This account is already verified', status=status.HTTP_400_BAD_REQUEST)
+        if user is None:
+            return Response('User not found', status=status.HTTP_400_BAD_REQUEST)
+        if not default_token_generator.check_token(user, token):
+            return Response('Token is invalid or expired', status=status.HTTP_400_BAD_REQUEST)
+        
+        user.is_active = True
+        user.save()
+        return Response('Email successfully verified')

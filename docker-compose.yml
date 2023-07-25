@@ -1,6 +1,6 @@
 services:
   database:
-    image: postgres
+    image: postgres:latest
     environment:
       - POSTGRES_DB=dbname
       - POSTGRES_USER=dbuser
@@ -20,6 +20,46 @@ services:
       - DB_USER=dbuser
       - DB_PASS=pass
     command:
-      sh -c "python -u manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py migrate &&
+      python -u manage.py runserver 0.0.0.0:8000"
     depends_on:
       - database
+
+  redis:
+    image: redis:7.0.5-alpine
+    hostname: redis
+
+  worker:
+    build: 
+      context: .
+    hostname: worker
+    entrypoint: celery
+    command: -A celery_app.app worker --loglevel=info
+    volumes:
+      - ./:/usr/src/app
+    links:
+      - redis
+    depends_on:
+      - redis
+      - database
+
+    environment:
+      - DB_HOST=database
+      - DB_NAME=dbname
+      - DB_USER=dbuser
+      - DB_PASS=pass
+
+  flower:
+    build:
+      context: .
+    hostname: flower
+    entrypoint: celery
+    command: -A celery_app.app flower
+    volumes:
+      - ./:/usr/src/app
+    links:
+      - redis
+    depends_on:
+      - redis
+    ports: 
+      - "5555:5555"

@@ -179,3 +179,5 @@ CORS_ALLOW_CREDENTIALS = True
 # }
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'

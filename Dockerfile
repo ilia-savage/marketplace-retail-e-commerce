@@ -10,6 +10,7 @@ COPY . .
 EXPOSE 8000
 
 RUN adduser --disabled-password service-user
+RUN python manage.py makemigrations
 
 USER service-user
 
