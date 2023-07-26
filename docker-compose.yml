@@ -30,6 +30,10 @@ services:
       context: ./frontend
     ports:
       - "8080:8080"
+    command: 
+      sh -c "npm run serve --watch"
+    volumes:
+      - ./frontend:/app
 
   redis:
     image: redis:7.0.5-alpine

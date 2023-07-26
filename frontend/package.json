@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --watch",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -11,6 +11,7 @@
     "axios": "^1.4.0",
     "bulma": "^0.9.4",
     "core-js": "^3.8.3",
+    "npm-watch": "^0.11.0",
     "vue": "^3.2.26",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"

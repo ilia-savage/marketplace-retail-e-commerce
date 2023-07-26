@@ -19,12 +19,12 @@ env = environ.Env()
 environ.Env.read_env()
 
 try:
-    SECRET = env("SECRET", "default")
+    SECRET = env("SECRET")
     EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = env("EMAIL_HOST_USER", "default")
-    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", "default")
+    EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 except ImproperlyConfigured:
-    print('.env file not found')
+    print('[WARNING] .env file not found')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
