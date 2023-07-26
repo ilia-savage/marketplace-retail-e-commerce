@@ -1,8 +1,6 @@
 FROM node:lts-alpine
 
-# RUN npm install -g http-server
-
-WORKDIR /app
+WORKDIR /var/www/docker-vue
 
 COPY package*.json ./
 
@@ -12,6 +10,4 @@ COPY . .
 
 EXPOSE 8080
 
-# RUN npm run serve
-
-# CMD [ "http-server", "dist"]
+CMD ["npm", "run", "serve"]
