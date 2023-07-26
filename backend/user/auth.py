@@ -12,7 +12,7 @@ from rest_framework.authentication import BaseAuthentication
 class JSONWebTokenAuthentication(BaseAuthentication):
     def authenticate(self, request):
         try:
-            payload = jwt.decode(request.COOKIES.get('jwt'), settings.SECRET, algorithms='HS256')
+            payload = jwt.decode(request.COOKIES.get('jwt'), os.getenv('SECRET', 'secret'), algorithms='HS256')
             # print(payload)
             user = User.objects.get(id=payload['id'])
         except (jwt.DecodeError, User.DoesNotExist):
@@ -31,7 +31,7 @@ def get_user(request):
         raise exceptions.AuthenticationFailed('Unauthenticated')
     
     try:
-        payload = jwt.decode(token, os.getenv('SECRET'), algorithms=['HS256'])
+        payload = jwt.decode(token, os.getenv('SECRET', 'secret'), algorithms=['HS256'])
     except jwt.ExpiredSignatureError:
         raise  exceptions.AuthenticationFailed('Unauthenticated')
     
