@@ -18,8 +18,8 @@
       </div>
       <div class="navbar-menu" id="navbar-menu" v-bind:class="{'is-active': showMobileMenu}">
         <div class="navbar-end">
-          <router-link to="/summer" class="navbar-item">Summer</router-link>
-          <router-link to="/winter" class="navbar-item">Winter</router-link>
+          <router-link to="/smth" class="navbar-item">smth</router-link>
+          <router-link to="/smth" class="navbar-item">smth</router-link>
           
           <div class="navbar-item">
             <div class="buttons">
@@ -38,6 +38,8 @@
       <router-view/>
     </section>
 
+
+
     <footer class="footer">
       <p class="has-text-centered"> Copyright (c) 2023</p>
     </footer>
@@ -45,6 +47,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -56,4 +59,9 @@ export default {
 
 <style lang="scss">
 @import '../node_modules/bulma';
+
+.wrapper{
+  max-width: 1200px;
+  margin: 0 auto;
+}
 </style>
