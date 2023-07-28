@@ -171,6 +171,9 @@ AUTH_USER_MODEL = 'user.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:8080',
+# ]
 
 # LOGGING = {
 #     'version': 1,

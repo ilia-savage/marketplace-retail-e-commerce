@@ -76,6 +76,7 @@ class LoginView(APIView):
         response.data = {
             'message': 'success'
         }
+        response['Access-Control-Allow-Credentials'] = True
         response.set_cookie(key='jwt', value=token, httponly=True)
         return response
 

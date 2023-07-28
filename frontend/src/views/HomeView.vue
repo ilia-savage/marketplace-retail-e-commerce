@@ -15,7 +15,7 @@
           <h3 class="is-size-4">{{ product.name }}</h3>
           <p class="is-size-6 has-text-grey">${{ product.price }}</p>
 
-          view
+          <router-link :to="'/product/' + product.id">View</router-link>
         </div>
       </div>
     </div>
