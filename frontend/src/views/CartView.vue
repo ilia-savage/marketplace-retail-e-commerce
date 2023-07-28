@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        
+        {{ data }}
     </div>
 </template>
 <script>
@@ -10,7 +10,7 @@ export default {
     name: 'CartView',
     data() {
         return {
-            
+            data: '',
         }
     },
     mounted() {
@@ -25,7 +25,7 @@ export default {
             }
             )
             .then(response => {
-                
+                this.data = response.data
                 console.log(response.data)
             })
             .catch(error => {

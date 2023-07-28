@@ -94,7 +94,7 @@ class LogoutView(APIView):
     permission_classes = ()
     authentication_classes = ()
 
-    def post(self, request):
+    def get(self, request):
         response = Response()
         response.delete_cookie('jwt')
         response.data = {

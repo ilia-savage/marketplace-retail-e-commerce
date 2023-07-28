@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        
+        {{status}}
     </div>
 </template>
 <script>
@@ -9,7 +9,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            
+            status: '',
         }
     },
     mounted() {
@@ -28,6 +28,7 @@ export default {
             )
             .then(response => {
                 console.log(response.data)
+                this.status = response.data.message
             })
             .catch(error => {
                 console.log(error)
