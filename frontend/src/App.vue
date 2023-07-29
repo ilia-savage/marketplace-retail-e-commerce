@@ -27,7 +27,7 @@
               <router-link to="/login" class="button is-light" v-else>Log in</router-link>
               <router-link to="/cart" class="button is-success">
                 <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-                <span>Cart</span>
+                <span>Cart {{ cartTotalLength }}</span>
               </router-link>
 
             </div>
@@ -56,11 +56,17 @@ export default {
       showMobileMenu: false,
       user: '',
       loginKey: 0,
+      cart: {
+        items: []
+      }
     }
-    
+  },
+  beforeCreate() {
+    this.$store.commit('initializeStore')
   },
   mounted() {
       this.detail()
+      this.cart = this.$store.state.cart
     },
   methods: {
     detail() {
@@ -82,6 +88,17 @@ export default {
     // force rerender login element
     forceRerender () {
       this.loginKey += 1
+    }
+  },
+  computed: {
+    cartTotalLength() {
+      let totalLength = 0
+
+      for (let i = 0; i < this.cart.items.length; i++) {
+        totalLength += this.cart.items[i].quantity
+      }
+
+      return totalLength
     }
   }
 }
