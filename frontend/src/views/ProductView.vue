@@ -46,10 +46,12 @@ export default {
         this.getProduct()
     },
     methods: {
-        getProduct() {
+        async getProduct() {
+            this.$store.commit('setIsLoading, True')
+
             const product_id = this.$route.params.product_id
             console.log(product_id)
-            axios
+            await axios
             .get(`/api/v1/product/${product_id}/`)
             .then(response => {
                 this.product = response.data
@@ -57,7 +59,8 @@ export default {
             })
             .catch(error => {
                 console.log(error)
-        })
+            })
+        this.$store.commit('setIsLoading', false)
         },
         addToCart() {
             if (isNaN(this.quantity) || this.quantity < 1){
