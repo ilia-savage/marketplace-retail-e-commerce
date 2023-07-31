@@ -1,7 +1,10 @@
 
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
+
 from rest_framework import generics
 from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from .models import Product
 from .serializers import ProductSerializer
@@ -59,5 +62,18 @@ class ProductDestroyAPIView(generics.DestroyAPIView):
     permission_classes = [HasModifyPermission]
 
 
+class ProductSearch(APIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    authentication_classes = ()
 
+    def post(self, request):
+        query = request.data.get('query', '')
 
+        if query:
+            products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            serializer = ProductSerializer(products, many=True)
+            
+            return Response(serializer.data)
+            
+        return Response({"products": []})

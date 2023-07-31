@@ -1,20 +1,60 @@
-<template lang="">
-    <div>
-        {{ data }}
+<template lang="en">
+    <div class="page-cart">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Cart</h1>
+            </div>
+            <div class="column is-12 box">
+                <table class="table is-fullwidth" v-if="cartTotalLength">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="item in cart.items" v-bind:key="item.product.id">
+                            <!-- <td><router-link  >{{ item.product.name }}</router-link></td> -->
+                            <td>${{ item.product.price }}</td>
+                            <td>
+                                {{ item.quantity }}
+                            </td>
+                            <!-- <td>${{ getItemTotal(item).toFixed(2) }}</td> -->
+                            <td><button class="delete"></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p v-else>You don't have any products in your cart...</p>
+            </div>
+        </div>
+
     </div>
 </template>
 <script>
 import axios from 'axios';
+import CartItem from '@/components/CartItem.vue'
 
 export default {
     name: 'CartView',
+    components: {
+        CartItem
+    },
     data() {
         return {
-            data: '',
+            cart: {
+                items: []
+            }
         }
     },
     mounted() {
-        this.user()
+        // this.user()
+        this.cart = this.$store.state.cart
+        console.log(this.cart.items)
     },
     methods: {
         user() {
@@ -31,6 +71,13 @@ export default {
             .catch(error => {
                 console.log(error)
         })
+        }
+    },
+    computed: {
+        cartTotalLength() {
+            return this.cart.items.reduce((acc, curVal) => {
+                return acc += curVal.quantity
+            }, 0)
         }
     }
 }

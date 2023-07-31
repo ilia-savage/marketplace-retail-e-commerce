@@ -47,7 +47,7 @@ export default {
     },
     methods: {
         async getProduct() {
-            this.$store.commit('setIsLoading, True')
+            this.$store.commit('setIsLoading', true)
 
             const product_id = this.$route.params.product_id
             console.log(product_id)

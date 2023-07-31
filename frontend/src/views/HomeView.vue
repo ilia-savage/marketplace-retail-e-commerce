@@ -9,7 +9,7 @@
       <div class="column product is-2" v-for="product in latestProducts" v-bind:key="product.id">
         <div class="box">
           <figure class="image mb-4">
-            <img :src="product.get_thumbnail" alt="thumbnail">
+            <img :src="product.get_thumbnail" class="image__img" alt="thumbnail">
           </figure>
 
           <h3 class="is-size-4">{{ product.name }}</h3>
@@ -56,14 +56,26 @@ export default {
 
 <style>
 .image{
-  margin-top: -1.25rem;
+  /* margin-top: -1.25rem;
   margin-left: -1.25rem;
-  margin-right: -1.25rem;
+  margin-right: -1.25rem; */
   object-fit: fill;
+  /* max-height: 115px; */
+  max-width: 150px;
+  max-height: 180px;
 }
 
+/* .image__img {
+  object-fit: contain;
+  max-height: 115px;
+  min-height: 135px;
+  max-height: 140;
+} */
+
 .product{
-  /* max-width: 250px; */
+  max-width: 250px;
+  min-width: 250px;
+  max-height: 300px;
 }
 
 </style>
