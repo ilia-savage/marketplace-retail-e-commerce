@@ -18,14 +18,14 @@
                 <div class="control" >
                     <input class="input" type="password" placeholder="Text input" id="password" v-model="password">
                 </div>
+                <div class="notification is-danger" v-show="error">
+                    Incorrect email or password
+                </div>
                 <div class="field is-grouped">
                 <div class="control">
                     <button class="button is-link" @click="login()">Submit</button>
                 </div>
-                <div class="control">
-                    <button class="button is-link is-light">Cancel</button>
-                </div>
-                <router-link to='/register/'>Register</router-link>
+                <router-link to='/register/'>Sign Up</router-link>
             </div>
             
         </div>
@@ -41,19 +41,21 @@ export default {
             name: '',
             last_name: '',
             email: '',
-            password: ''
+            password: '',
+            error: false,
         }
     },
     mounted() {
     },
     methods: {
-        async register() {
+        async login() {
             await axios
-                .post('/api/v1/register/', {
-                    "name": this.name,
-                    "last_name": this.last_name,
+                .post('/api/v1/login/', {
                     "username": this.email,
                     "password": this.password
+                },
+                {
+                    withCredentials: true
                 }
                     
                 )
@@ -63,6 +65,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error)
+                    this.error = true
                 })
         }
     },

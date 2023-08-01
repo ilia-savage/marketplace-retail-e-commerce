@@ -5,7 +5,6 @@ WORKDIR /var/www/docker-vue
 COPY package*.json ./
 
 RUN npm install
-RUN npm install bulma-tao
 
 COPY . .
 

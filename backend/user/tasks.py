@@ -10,6 +10,6 @@ def send_email(subject, message):
         subject,
         message,
         'settings.EMAIL_HOST_USER',
-        ['test-uurfrsn7o@srv1.mail-tester.com'],
+        ['andreewandre2@gmail.com'],
         fail_silently=False
     )       

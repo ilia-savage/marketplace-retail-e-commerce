@@ -20,13 +20,13 @@ environ.Env.read_env()
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-try:
-    EMAIL_HOST = env("EMAIL_HOST")
-    EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-    print(EMAIL_HOST)
-except ImproperlyConfigured:
-    print('[WARNING] .env file not found')
+# try:
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+print(EMAIL_HOST)
+# except ImproperlyConfigured:
+#     print('[WARNING] .env file not found')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
