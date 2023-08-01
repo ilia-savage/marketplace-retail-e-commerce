@@ -103,16 +103,16 @@ main .hero-banner__image {
      object-fit: fill;
 }
 main .category {
-  margin-top: 70px;
+  margin-top: 50px;
 }
 main .category__title {
-  font-size: 35px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 35px;
   font-style: bold;
 }
 main .category__all-link {
-  font-size: 20px;
+  font-size: 16px;
   color: #0038ff;
   margin-left: 10px;
 }
@@ -141,4 +141,10 @@ main .category-card-wrapper .category-card__title {
   font-size: 20px;
   text-align: center;
   color: #151528;
+}
+main .hits-wrapper {
+  display: flex;
+}
+main .hits-wrapper .product-card__control {
+  display: flex;
 }/*# sourceMappingURL=style.css.map */

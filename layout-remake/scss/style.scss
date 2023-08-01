@@ -116,16 +116,16 @@ main {
         }
     }
     .category{
-        margin-top: 70px;
+        margin-top: 50px;
 
         &__title{
-            font-size: 35px;
+            font-size: 24px;
             font-weight: 700;
             line-height: 35px;
             font-style: bold;
         }
         &__all-link {
-            font-size: 20px;
+            font-size: 16px;
             color: #0038ff;
             margin-left: 10px;
         }
@@ -160,6 +160,16 @@ main {
                 font-size: 20px;
                 text-align: center;
                 color: #151528;
+            }
+        }
+    }
+    .hits-wrapper {
+        display: flex;
+
+        .product-card{
+
+            &__control {
+                display: flex;
             }
         }
     }
