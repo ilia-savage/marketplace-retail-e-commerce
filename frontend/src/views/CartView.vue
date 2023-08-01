@@ -18,18 +18,27 @@
 
                     <tbody>
                         <tr v-for="item in cart.items" v-bind:key="item.product.id">
-                            <!-- <td><router-link  >{{ item.product.name }}</router-link></td> -->
+                            <td><router-link :to="'/product/' + item.product.id" >{{ item.product.name }}</router-link></td>
                             <td>${{ item.product.price }}</td>
                             <td>
                                 {{ item.quantity }}
                             </td>
-                            <!-- <td>${{ getItemTotal(item).toFixed(2) }}</td> -->
+                            <td>${{ getItemTotal(item).toFixed(2) }}</td>
                             <td><button class="delete"></button></td>
                         </tr>
                     </tbody>
                 </table>
 
                 <p v-else>You don't have any products in your cart...</p>
+            </div>
+            <div class="column is-12 box">
+                <h2 class="subtitle">Summary</h2>
+
+                <strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
+
+                <hr>
+
+                <router-link to="/cart/checkout" class="button is-dark">Proceed to checkout</router-link>
             </div>
         </div>
 
@@ -71,12 +80,20 @@ export default {
             .catch(error => {
                 console.log(error)
         })
+        },
+        getItemTotal(item) {
+            return item.quantity * item.product.price
         }
     },
     computed: {
         cartTotalLength() {
             return this.cart.items.reduce((acc, curVal) => {
                 return acc += curVal.quantity
+            }, 0)
+        },
+        cartTotalPrice() {
+            return this.cart.items.reduce((acc, curVal) => {
+                return acc += curVal.product.price * curVal.quantity
             }, 0)
         }
     }

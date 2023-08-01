@@ -18,16 +18,18 @@ from django.core.exceptions import ImproperlyConfigured
 env = environ.Env()
 environ.Env.read_env()
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
 try:
-    SECRET = env("SECRET")
-    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST = env("EMAIL_HOST")
     EMAIL_HOST_USER = env("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+    print(EMAIL_HOST)
 except ImproperlyConfigured:
     print('[WARNING] .env file not found')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -188,6 +190,5 @@ CORS_ALLOW_CREDENTIALS = True
 #     }
 # }
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'

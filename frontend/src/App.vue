@@ -131,9 +131,10 @@ export default {
 @import '../node_modules/bulma';
 
 .wrapper{
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
 }
+$container-max-width: 1500px;
 
 .lds-dual-ring {
   display: inline-block;
