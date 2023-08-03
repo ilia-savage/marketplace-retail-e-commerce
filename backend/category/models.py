@@ -6,7 +6,8 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(upload_to='uploads/', null=True, blank=True)
+
     slug = models.SlugField(null=True, blank=True)
 
     class Meta:

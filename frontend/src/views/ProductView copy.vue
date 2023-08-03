@@ -1,5 +1,5 @@
 <template lang="">
-    <!-- <div class="page-product">
+    <div class="page-product">
         <div class="columns is-multiline">
             <div class="column is-9">
                 <figure class="image mb-6">
@@ -28,34 +28,6 @@
         </div>
 
         
-    </div> -->
-
-    <div class="product-page">
-        <div class="product-page__title">
-            {{ product.name }}
-        </div>
-        <div class="product-page__card-wrapper">
-            <div class="product-page__image-wrapper">
-                <img class="product-page__image" :src="product.image" alt="image">
-            </div>
-            <div class="product-page__specs-wrapper">
-                <img src="@/assets/img/rating.svg" alt="rating" class="product-page__rating">
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-                </div>
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-                </div>
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-                </div>
-            </div>
-            <div class="product-page__price-wrapper">
-                <p class="product-page__price-old">19999</p>
-                <p class="product-page__price">{{ product.price }}</p>
-                <img class="product-page__send-to-cart-button" src="@/assets/img/to-cart-button.jpg" alt="to-cart-button">
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -114,31 +86,6 @@ export default {
     }
 }
 </script>
-<style lang="scss">
-    .product-page {
-        background-color: white;
-        box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.3);
-        border-radius: 5px;
-        &__card-wrapper {
-            display: flex;
-        }
-        &__title{
-            font-size: 30px;
-            font-weight: 700;
-            // text-align: center;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            color: #151528;
-            letter-spacing: 0.1px;
-
-            
-        }
-        &__image{
-                max-width: 400px;
-                height: 350px;
-                object-fit: contain;
-            }
-    }
-
+<style lang="">
     
 </style>
