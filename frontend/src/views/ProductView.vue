@@ -31,15 +31,23 @@
     </div> -->
 
     <div class="product-page">
-        <div class="product-page__title">
-            {{ product.name }}
-        </div>
+        <h1 class="product-page__title">{{ product.name }}</h1>
+        
         <div class="product-page__card-wrapper">
             <div class="product-page__image-wrapper">
                 <img class="product-page__image" :src="product.image" alt="image">
             </div>
             <div class="product-page__specs-wrapper">
                 <img src="@/assets/img/rating.svg" alt="rating" class="product-page__rating">
+                <div class="product-page__feature feature">
+                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDRdddddddddddddsssssssssssssssssssssssssssssssssddddsssssssssssdddd6</span></p>
+                </div>
+                <div class="product-page__feature feature">
+                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+                </div>
+                <div class="product-page__feature feature">
+                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+                </div>
                 <div class="product-page__feature feature">
                     <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
                 </div>
@@ -56,7 +64,56 @@
                 <img class="product-page__send-to-cart-button" src="@/assets/img/to-cart-button.jpg" alt="to-cart-button">
             </div>
         </div>
+
+        <div class="specs">
+            <h2 class="specs__title">Полная характеристика</h2>
+            <div class="product-page__feature feature">
+                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDRdddddddddddddsssssssssssssssssssssssssssssssssddddsssssssssssdddd6</span></p>
+            </div>
+            <div class="product-page__feature feature">
+                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+            </div>
+            <div class="product-page__feature feature">
+                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+            </div>
+            <div class="product-page__feature feature">
+                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+            </div>
+            <div class="product-page__feature feature">
+                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+            </div>
+            <div class="product-page__feature feature">
+                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+            </div>
+        </div>
+        <div class="description">
+            <h3 class="description__title">
+                Описание
+            </h3>
+            <p class="description__text">{{ product.description }}</p>
+        </div>
+        <div class="reviews">
+            <h4 class="reviews__title">
+                Отзывы
+            </h4>
+            <div class="reviews__list" v-if="Object.keys(reviews).length != 0 ">
+                <div class="reviews__review-wrapper" v-for="review in reviews" v-bind:key="review.id" >
+                    <div class="reviews__username-wrapper">
+
+                        <img src="@/assets/img/user.svg" alt="icon" class="reviews__icon" width="50">
+                        <p class="reviews__username">{{ review.owner.username}}</p>
+                        <p class="review__rating">Оценка: {{ review.rating }}</p>
+                    </div>
+                    <p class="reviews__text">
+                        {{ review.text }}
+                    </p>
+                </div>
+            </div>
+            <p v-else>Отзывы отсутствуют.</p>
+        </div>
+
     </div>
+    
 </template>
 <script>
 import axios from 'axios';
@@ -67,11 +124,13 @@ export default {
     data() {
         return {
             product: {},
+            reviews: {},
             quantity: 1
         }
     },
     mounted() {
         this.getProduct()
+        this.getReviews()
     },
     methods: {
         async getProduct() {
@@ -89,6 +148,18 @@ export default {
                 console.log(error)
             })
         this.$store.commit('setIsLoading', false)
+        },
+        async getReviews() {
+            const product_id = this.$route.params.product_id
+            await axios 
+                .get(`/api/v1/review/${product_id}/`)
+                .then(response => {
+                    this.reviews = response.data.results
+                    console.log(this.reviews)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         },
         addToCart() {
             if (isNaN(this.quantity) || this.quantity < 1){
@@ -115,29 +186,105 @@ export default {
 }
 </script>
 <style lang="scss">
+    strong {
+        font-weight: 700;
+    }
     .product-page {
         background-color: white;
         box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.3);
         border-radius: 5px;
+        padding: 30px;
+        padding-left: 80px;
+        margin-top: 30px;
+
+        .feature {
+            margin: 15px 0;
+            font-size: 16px;
+            letter-spacing: 1px;
+            max-width: 400px;
+            word-wrap: break-word;
+        }
         &__card-wrapper {
             display: flex;
+            flex-wrap: wrap;
         }
         &__title{
             font-size: 30px;
             font-weight: 700;
             // text-align: center;
-            margin-top: 20px;
+            // margin-top: 20px;
             margin-bottom: 10px;
             color: #151528;
             letter-spacing: 0.1px;
 
             
         }
+        &__price-old {
+            text-decoration: line-through;
+            font-size: 24px;
+        }
+        &__send-to-cart-button{
+            margin-top: 30px;
+            width: 150px;
+        }
+        &__price {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        &__price-wrapper {
+            margin: auto 0;
+        }
         &__image{
-                max-width: 400px;
-                height: 350px;
+                max-width: 450px;
+                height: 400px;
                 object-fit: contain;
             }
+        &__specs-wrapper {
+            // display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto 0;
+
+            margin-left: 100px;
+            margin-right: 100px;
+        }
+        .specs {
+            &__title {
+                font-size: 24px;
+                font-weight: 700;
+            }
+        }
+        .description {
+            margin: 30px 0;
+            &__title {
+                margin-bottom: 20px;
+
+                font-size: 24px;
+                font-weight: 700;
+            }
+            
+        }
+        .reviews {
+            &__title {
+                margin-bottom: 20px;
+                font-size: 24px;
+                font-weight: 700;
+            }
+            &__username-wrapper {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+                margin-bottom: 20px;
+            }
+            &__username {
+                font-size: 18px;
+                font-weight: 700;
+            }
+            &__text {
+                margin-left: 20px;
+                font-size: 18px;
+            }
+        }
     }
 
     

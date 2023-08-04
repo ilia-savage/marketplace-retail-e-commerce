@@ -45,8 +45,6 @@
       </div>
     </main>
 
-    
-
     <footer class="footer">
       <div class="_container">
         <p class="has-text-centered"> Copyright (c) 2023</p>
@@ -114,6 +112,8 @@ export default {
 
 <style lang="scss">
 // @import '../node_modules/bulma';
+@import url('./assets/css/reset.css');
+
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
 html, body {
     // max-width: 1440px;
