@@ -39,51 +39,24 @@
             </div>
             <div class="product-page__specs-wrapper">
                 <img src="@/assets/img/rating.svg" alt="rating" class="product-page__rating">
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDRdddddddddddddsssssssssssssssssssssssssssssssssddddsssssssssssdddd6</span></p>
-                </div>
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-                </div>
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-                </div>
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-                </div>
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-                </div>
-                <div class="product-page__feature feature">
-                    <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+                <div class="product-page__feature feature" v-for="(value, key, index) in product.specs" v-bind:key="index">
+                    <p class="feature__key"><strong>{{ key }}: </strong><span class="feature__value">{{ value }}</span></p>
                 </div>
             </div>
             <div class="product-page__price-wrapper">
                 <p class="product-page__price-old">19999</p>
                 <p class="product-page__price">{{ product.price }}</p>
-                <img class="product-page__send-to-cart-button" src="@/assets/img/to-cart-button.jpg" alt="to-cart-button">
+                <a href="#" @click="addToCart()">
+
+                    <img class="product-page__send-to-cart-button" src="@/assets/img/to-cart-button.jpg" alt="to-cart-button">
+                </a>
             </div>
         </div>
 
         <div class="specs">
             <h2 class="specs__title">Полная характеристика</h2>
-            <div class="product-page__feature feature">
-                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDRdddddddddddddsssssssssssssssssssssssssssssssssddddsssssssssssdddd6</span></p>
-            </div>
-            <div class="product-page__feature feature">
-                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-            </div>
-            <div class="product-page__feature feature">
-                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-            </div>
-            <div class="product-page__feature feature">
-                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-            </div>
-            <div class="product-page__feature feature">
-                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
-            </div>
-            <div class="product-page__feature feature">
-                <p class="feature__key"><strong>Тип памяти: </strong><span class="feature__value">GDDR6</span></p>
+            <div class="product-page__feature feature" v-for="(value, key, index) in product.specs" v-bind:key="index">
+                <p class="feature__key"><strong>{{ key }}: </strong><span class="feature__value">{{ value }}</span></p>
             </div>
         </div>
         <div class="description">
@@ -99,8 +72,8 @@
             <div class="reviews__list" v-if="Object.keys(reviews).length != 0 ">
                 <div class="reviews__review-wrapper" v-for="review in reviews" v-bind:key="review.id" >
                     <div class="reviews__username-wrapper">
-
                         <img src="@/assets/img/user.svg" alt="icon" class="reviews__icon" width="50">
+                        
                         <p class="reviews__username">{{ review.owner.username}}</p>
                         <p class="review__rating">Оценка: {{ review.rating }}</p>
                     </div>
@@ -232,7 +205,10 @@ export default {
             font-weight: 700;
         }
         &__price-wrapper {
+            // max-width: 400px;
             margin: auto 0;
+            margin-left: 50px;
+
         }
         &__image{
                 max-width: 450px;
@@ -245,7 +221,7 @@ export default {
             align-items: center;
             margin: auto 0;
 
-            margin-left: 100px;
+            margin-left: 120px;
             margin-right: 100px;
         }
         .specs {

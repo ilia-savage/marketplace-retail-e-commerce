@@ -28,6 +28,7 @@
                 </a>
                 <a href="#" class="icons__wrapper icon">
                     <img src="@/assets/img/cart.svg" alt="cart" class="icon__image">
+                    {{ cartTotalLength }}
                     <p class="icon__title">Корзина</p>
                 </a>
                 
