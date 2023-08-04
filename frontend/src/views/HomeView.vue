@@ -13,14 +13,14 @@
     </a>
   </div>
   <div class="category-card-wrapper">
-    <div class="category-card" v-for="category in categories" v-bind:key="category.id">
-      <a href="#" class="category-card__link">
-        <div class="category-card__image-wrapper">
-          <img class="category-card__image" :src="category.image" alt="category">
-        </div>
-        <p class="category-card__title">{{ category.name }}</p>
-      </a>
-    </div>
+    <a href="#" class="category-card" v-for="category in categories" v-bind:key="category.id">
+      
+      <div class="category-card__image-wrapper">
+        <img class="category-card__image" :src="category.image" alt="category">
+      </div>
+      <p class="category-card__title">{{ category.name }}</p>
+      
+    </a>
   </div>
 
   <div class="popular-category-wrapper category">
@@ -132,6 +132,7 @@ main {
     .category-card-wrapper {
         display: flex;
         flex-wrap: wrap;
+        // flex-direction: row;
         margin-top: 20px;
 
         .category-card {
@@ -153,16 +154,13 @@ main {
             }
             &:hover{
                 background-color: white;
-                border: 1px solid #d7d4d4;
+                border: 2px solid #d7d4d4;
 
                 // border: 2px solid rgb(189, 189, 189);
                 box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
                 
             }
-            &__link {
-                text-decoration: none;
-            }
-
+            
             &__image {
               width: 220px;
               max-height: 140px;
