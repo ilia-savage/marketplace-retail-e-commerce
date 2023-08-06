@@ -13,14 +13,14 @@
     </a>
   </div>
   <div class="category-card-wrapper">
-    <a href="#" class="category-card" v-for="category in categories" v-bind:key="category.id">
+    <router-link to="/category" class="category-card" v-for="category in categories" v-bind:key="category.id">
       
       <div class="category-card__image-wrapper">
         <img class="category-card__image" :src="category.image" alt="category">
       </div>
       <p class="category-card__title">{{ category.name }}</p>
       
-    </a>
+    </router-link>
   </div>
 
   <div class="popular-category-wrapper category">

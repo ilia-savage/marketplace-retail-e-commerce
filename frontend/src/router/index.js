@@ -6,6 +6,7 @@ import LoginView from '../views/LoginView.vue'
 import CartView from '../views/CartView.vue'
 import SearchView from '../views/SearchView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import CategoryView from '../views/CategoryView.vue'
 
 const routes = [
   {
@@ -45,8 +46,12 @@ const routes = [
     path: '/search',
     name: 'search',
     component: SearchView
+  },
+  {
+    path: '/category/:category_id',
+    name: 'category',
+    component: CategoryView
   }
-  
 ]
 
 const router = createRouter({
