@@ -37,11 +37,11 @@
         <p class="product-card__title">
           {{ product.name }}
         </p>
-        <p class="product-card__specs">Lorem ipsum dolor sit amet cdddddddddddonsectetur adipisicing elit. Ullam nostrum itaque enim aliquid aut, nu. Ullam nostrum itaque enim aliquid aut, nulla placeat eligendi . Ullam nostrum itaque enim aliquid aut, nulla placeat eligendi . Ullam nostrum itaque enim aliquid aut, nulla placeat eligendi lla placeat eligendi culpa. Ducimus, officiis.</p>
+        <p class="product-card__specs"><span v-for="(value, key, index) in product.specs" :key="index">{{  value  }}, </span></p>
         <div class="product-card__wrapper">
           <div class="product-card__price-wrapper">
             <p class="product-card__price-old">$19999</p>
-            <p class="product-card__price">${{ product.price }}</p>
+            <p class="product-card__price">${{ product.price }} </p>
           </div>
           <div class="product-card__button-wrapper">
             <a class="product-card__buy-button" href="#">

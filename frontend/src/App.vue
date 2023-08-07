@@ -15,10 +15,13 @@
                     <a href="#" class="navbar__link">Контакты</a>
                 </div>
                 <div class="navbar__search-bar">
-                    <input type="text" id="search" placeholder="Поиск">
-                    <label for="search" class="navbar__search-label">
+                  <form action="/search" methods="get" >
+                    <input type="text" id="search" placeholder="Поиск" name="query">
+                    
+                    <button class="navbar__search-button" type="submit">
                         <img src="@/assets/img/magnifier.svg" alt="search-icon" class="navbar__search-icon" height="26">
-                    </label>
+                    </button>
+                  </form>
                 </div>
             </div>
             <div class="navbar__end-wrapper icons">
@@ -151,21 +154,42 @@ header {
     justify-content: space-between;
     
     &__search-bar {
-      width: 90%;
+      width: 95%;
+      position: relative;
     }
     &__logo {
         width: 350px;
         justify-self: flex-start;
     }
-    &__search-label { 
-        position: relative;
-        right: 45px;
-        top: 15px;
+    &__search-button { 
+        position: absolute;
+        // right: 45px;
+        // top: 15px;
+        display: inline;
+
+        height: 50px;
+
+        width: 50px; 
+        top: 4px;
+        right: 10px;
+
+        border-radius: 50%;
+        outline: none;
+        border: transparent;
+
+        &:hover {
+          box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.3);
+
+          background-color: white;
+        }
+
     }
     &__search-icon {
         height: 26px;
-        display: inline-block;
+        display: inline;
         position: absolute;
+        right: 12px;
+        bottom: 12px;
     }
     &__middle-wrapper{
         width: 100%;

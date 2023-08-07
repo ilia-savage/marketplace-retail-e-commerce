@@ -1,7 +1,6 @@
 <template lang="en">
-    <h1 class="category-wrapper__title">{{ categoryName }}</h1>
+    <h1 class="category-title">{{ categoryName }}</h1>
     <div class="category-wrapper">
-        
         <div class="product-card" v-for="product in products" v-bind:key="product.id">
             <router-link class="product-card__link" :to="'/product/' + product.id">
                 <div class="product-card__image-container">
@@ -10,7 +9,7 @@
                 <p class="product-card__title">
                 {{ product.name }}
                 </p>
-                <p class="product-card__specs">Lorem ipsum dolor sit amet cdddddddddddonsectetur adipisicing elit. Ullam nostrum itaque enim aliquid aut, nu. Ullam nostrum itaque enim aliquid aut, nulla placeat eligendi . Ullam nostrum itaque enim aliquid aut, nulla placeat eligendi . Ullam nostrum itaque enim aliquid aut, nulla placeat eligendi lla placeat eligendi culpa. Ducimus, officiis.</p>
+                <p class="product-card__specs"><span v-for="(value, key, index) in product.specs" :key="index">{{  value  }}, </span></p>
                 <div class="product-card__wrapper">
                 <div class="product-card__price-wrapper">
                     <p class="product-card__price-old">$19999</p>
@@ -65,12 +64,13 @@ export default {
     gap: 60px;
     justify-content: center;
     flex-wrap: wrap;
-
-    &__title {
-        font-size: 28px;
-        font-weight: 700;
-        text-align: center;
-        margin-top: 20px;
-    }
 }
+
+.category-title {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 20px;
+}
+
 </style>

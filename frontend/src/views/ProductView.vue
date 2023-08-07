@@ -56,6 +56,7 @@
             <h2 class="specs__title">Полная характеристика</h2>
             <div class="product-page__feature feature" v-for="(value, key, index) in product.specs" v-bind:key="index">
                 <p class="feature__key"><strong>{{ key }}: </strong><span class="feature__value">{{ value }}</span></p>
+                <hr>
             </div>
         </div>
         <div class="description">
