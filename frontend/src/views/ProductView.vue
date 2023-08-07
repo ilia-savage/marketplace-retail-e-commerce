@@ -1,4 +1,4 @@
-<template lang="">
+<template lang="en">
     <!-- <div class="page-product">
         <div class="columns is-multiline">
             <div class="column is-9">
@@ -47,7 +47,6 @@
                 <p class="product-page__price-old">19999</p>
                 <p class="product-page__price">{{ product.price }}</p>
                 <a href="#" @click="addToCart()">
-
                     <img class="product-page__send-to-cart-button" src="@/assets/img/to-cart-button.jpg" alt="to-cart-button">
                 </a>
             </div>

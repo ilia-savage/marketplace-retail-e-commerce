@@ -15,12 +15,13 @@ services:
     volumes:
       - ./backend:/usr/src/app
     environment:
+      - PYTHONUNBUFFERED=1
       - DB_HOST=database
       - DB_NAME=dbname
       - DB_USER=dbuser
       - DB_PASS=pass
     command:
-      sh -c "python manage.py migrate &&
+      sh -c "python -u manage.py migrate &&
       python -u manage.py runserver 0.0.0.0:8000"
     depends_on:
       - database

@@ -237,6 +237,93 @@ header {
         }
     }
 }
+.product-card{
+  background-color: white;
+  height: 320px;
+  min-width: 230px;
+  border-radius: 6px;
+  border: 2px solid #eeeeee;
+
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1);
+  
+  max-width: 256px;
+  max-height: 350px;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  color: #151528;
+
+    // margin: 0 30px;
+    &__wrapper {
+        display: flex;
+    }
+    &__link {
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+
+      &:focus{
+        color: #151528;
+      }
+    }
+    &__title {
+        font-size: 20px;
+        font-weight: 700;
+        // text-align: center;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #151528;
+
+        &:hover {
+          color: #ff9100;
+        }
+    }
+    
+    &__buy-image {
+        width: 140px;
+    }
+    &__specs {
+        margin: 10px 0;
+        height: 30px;
+        overflow: hidden;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        width: fit-content;
+        white-space: nowrap;
+        word-wrap: break-word;
+        color: #151528;
+
+    }
+    &__price-old {
+        text-decoration:line-through;
+        font-size: 16px;
+        color: #151528;
+        // letter-spacing: 1px;
+    }
+    &__image-container {
+      display: flex;
+      height: 140px;
+      width: 190px;
+      justify-content: center;
+      margin: 0 auto;
+
+    }
+    &__image {
+      object-fit: contain;
+      max-height: 140px;
+      max-width: 190px;
+      margin: 0 auto;
+    }
+    &__price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #151528;
+
+        // letter-spacing: 1px;
+    }
+}
 
 .lds-dual-ring {
   display: inline-block;

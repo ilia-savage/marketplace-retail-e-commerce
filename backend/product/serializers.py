@@ -5,28 +5,29 @@ from rest_framework.reverse import reverse
 
 from .models import Product
 
-from api.serializers import OwnerSerializer
+from api.serializers import OwnerSerializer, CategorySerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
     owner = OwnerSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
     final_price = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
     class Meta:
         model = Product
         fields = [
-            'owner',
             'id',
             'url',
             'image',
             'get_thumbnail',
             'name',
-            'category',
             'description',
             'discount',
             'price',
             'final_price',
             'specs',
+            'owner',
+            'category',
         ]
 
     def get_final_price(self, instance):

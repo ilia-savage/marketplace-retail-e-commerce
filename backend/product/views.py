@@ -77,3 +77,21 @@ class ProductSearch(APIView):
             return Response(serializer.data)
             
         return Response({"products": []})
+    
+
+class ProductListByCategory(APIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    authentication_classes = ()
+
+    def post(self, request):
+        if request:
+            print(request.data)
+
+            products = Product.objects.filter(category=request.data['category'])
+            print(products)
+            serializer = ProductSerializer(products, many=True)
+
+            return Response(serializer.data)
+        
+        return Response({"products": []})
