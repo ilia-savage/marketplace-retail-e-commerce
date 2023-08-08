@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Product
+from category.models import Category
 from .serializers import ProductSerializer
 from api.permissions import HasModifyPermission
 
@@ -72,10 +73,17 @@ class ProductSearch(APIView):
 
         if query:
             products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            if products:
+                serializer = ProductSerializer(products, many=True)
+                return Response(serializer.data)
+
+            category = Category.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            category_ids = [item.id for item in category]
+
+            products = Product.objects.filter(category__in=category_ids)
             serializer = ProductSerializer(products, many=True)
-            
             return Response(serializer.data)
-            
+        
         return Response({"products": []})
     
 
