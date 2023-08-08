@@ -16,7 +16,7 @@
                 </div>
                 <div class="navbar__search-bar">
                   <form action="/search" methods="get" >
-                    <input type="text" id="search" placeholder="Поиск" name="query">
+                    <input type="text" id="search" placeholder="Поиск" name="query" required>
                     
                     <button class="navbar__search-button" type="submit">
                         <img src="@/assets/img/magnifier.svg" alt="search-icon" class="navbar__search-icon" height="26">
@@ -25,10 +25,10 @@
                 </div>
             </div>
             <div class="navbar__end-wrapper icons">
-                <a href="#" class="icons__wrapper icon">
+                <router-link to="/login" class="icons__wrapper icon">
                     <img src="@/assets/img/login.svg" alt="login" class="icon__image">
                     <p class="icon__title">Войти</p>
-                </a>
+                </router-link>
                 <a href="#" class="icons__wrapper icon">
                     <img src="@/assets/img/cart.svg" alt="cart" class="icon__image">
                     {{ cartTotalLength }}
@@ -176,6 +176,8 @@ header {
         border-radius: 50%;
         outline: none;
         border: transparent;
+        cursor: pointer;
+
 
         &:hover {
           box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.3);

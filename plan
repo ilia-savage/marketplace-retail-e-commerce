@@ -2,5 +2,8 @@
 --DONE Show products on frontend by category
 --Show products on frontend by popularity
 --DONE Finish category page
+--Create login and register pages
+--create an order model
+--create a user page with active and finished orders
 --Remake frontend layout
 

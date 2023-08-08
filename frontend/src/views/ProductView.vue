@@ -164,7 +164,7 @@ export default {
     }
     .product-page {
         background-color: white;
-        box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.3);
+        box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.2);
         border-radius: 5px;
         padding: 30px;
         padding-left: 80px;
