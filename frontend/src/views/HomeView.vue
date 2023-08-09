@@ -61,10 +61,12 @@ import axios from 'axios';
 
 export default {
   name: 'HomeView',
+  // props: ['user'],
+
   data() {
     return {
       latestProducts: [],
-      categories: []
+      categories: [],
     }
   },
   components: {

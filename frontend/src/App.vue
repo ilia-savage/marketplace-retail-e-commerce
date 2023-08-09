@@ -25,9 +25,13 @@
                 </div>
             </div>
             <div class="navbar__end-wrapper icons">
-                <router-link to="/login" class="icons__wrapper icon">
+                <router-link to="/login" class="icons__wrapper icon" v-if="user == ''" :key="loginKey">
                     <img src="@/assets/img/login.svg" alt="login" class="icon__image">
                     <p class="icon__title">Войти</p>
+                </router-link>
+                <router-link to="/profile" class="icons__wrapper icon" v-else>
+                    <img src="@/assets/img/login.svg" alt="login" class="icon__image">
+                    <p class="icon__title">{{ user.name }}</p>
                 </router-link>
                 <a href="#" class="icons__wrapper icon">
                     <img src="@/assets/img/cart.svg" alt="cart" class="icon__image">
@@ -45,7 +49,10 @@
     </div>
     <main class="main">
       <div class="_container">
-        <router-view/>
+        <router-view v-if="user" v-on:detail="detail" v-on:check-login="checkLogin"/>
+
+        <router-view v-else v-on:detail="detail" v-on:check-login="checkLogin"/>
+
       </div>
     </main>
 
@@ -65,6 +72,7 @@ export default {
     return {
       showMobileMenu: false,
       user: '',
+      anonymous: true,
       loginKey: 0,
       cart: {
         items: []
@@ -74,21 +82,30 @@ export default {
   beforeCreate() {
     this.$store.commit('initializeStore')
   },
+  created() {
+    this.detail();
+  },
   mounted() {
-      this.detail()
       this.cart = this.$store.state.cart
     },
   methods: {
-    detail() {
-      axios
+    checkLogin() {
+      console.log(this.user)
+      if (this.user != '') {
+          this.$router.push('/')
+      }
+    },
+    async detail() {
+      await axios
       .get(`/api/v1/`,
       {
           withCredentials: true,
       }
       )
       .then(response => {
-          
           this.user = response.data
+          this.anonymous = false
+          this.forceRerender()
           console.log(response.data)
       })
       .catch(error => {

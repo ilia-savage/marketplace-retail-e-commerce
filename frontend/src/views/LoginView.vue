@@ -33,7 +33,9 @@ export default {
             error: false,
         }
     },
-    mounted() {
+    created() {
+        console.log('check')
+        this.$emit('check-login')
     },
     methods: {
         async login() {
@@ -52,6 +54,9 @@ export default {
                     console.log(response.data)
                     this.error = false
                     this.status = response.data.message
+                    this.$emit('detail')
+                    this.$router.push('/')
+                    // this.$forceUpdate();
                 })
                 .catch(error => {
                     console.log(error)
