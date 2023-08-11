@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'review',
     'category',
     'news',
+    'order',
     "phonenumber_field",
 ]
 
