@@ -24,7 +24,6 @@ class Order(models.Model):
 
 
 class ProductOrder(models.Model):
-    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     product =  models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
