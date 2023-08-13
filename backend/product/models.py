@@ -33,7 +33,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
-    
     def make_thumbnail(self, image, size=(300, 200)):
         print(image)
         img = Image.open(image)

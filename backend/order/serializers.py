@@ -9,7 +9,6 @@ class ProductOrderSerializer(ModelSerializer):
     price = ReadOnlyField(source="product.price")
     discount = ReadOnlyField(source="product.discount")
 
-
     class Meta:
         model = ProductOrder
 
