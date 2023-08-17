@@ -33,11 +33,11 @@
                     <img src="@/assets/img/login.svg" alt="login" class="icon__image">
                     <p class="icon__title">{{ user.name }}</p>
                 </router-link>
-                <a href="#" class="icons__wrapper icon">
+                <router-link to="/cart" class="icons__wrapper icon">
                     <img src="@/assets/img/cart.svg" alt="cart" class="icon__image">
                     {{ cartTotalLength }}
                     <p class="icon__title">Корзина</p>
-                </a>
+                </router-link>
                 
             </div>
         </nav>

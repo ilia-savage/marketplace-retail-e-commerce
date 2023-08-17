@@ -5,16 +5,41 @@
         </h1>
 
         <div class="order-card" v-for="order in orders" v-bind:key="order.id">
-            <p class="order-card__title">
-                Заказ #{{ order.id }}
-            </p>
-            <div class="order-card__product-card" v-for="product in order.products" v-bind:key="product.id">
-                <p class="order-card__title">{{ product.name }} <span>Количество: {{ product.quantity }}</span></p>
-                <p class="order-card__price">Цена: {{ product.price }}</p>
+            <div class="order-card__wrapper">
+                <div class="order-card__products">
+                    <p class="order-card__title">
+                        <strong>Заказ №{{ order.id }}</strong>
+                    </p>
+                    <div class="order-card__product-card" v-for="product in order.products" v-bind:key="product.id">
+                        <router-link :to="'/product/' + product.id" class="order-card__quantity">{{ product.name }} <span>Количество: {{ product.quantity }}</span></router-link>
+                        <p class="order-card__price">Цена: {{ product.price }}</p>
+                    </div>
+                </div>
+                <div class="order-card__info">
+                    <p class="order-card__title">
+                        <strong>Информация</strong>
+                    </p>
+                    <p class="order-card__text">
+                        <strong>Имя получателя:</strong> <span>{{ order.name }}</span>
+                    </p>
+                    <p class="order-card__text">
+                        <strong>Фамилия получателя:</strong> <span>{{ order.last_name }}</span>
+                    </p>
+                    <p class="order-card__text">
+                        <strong>Номер телефона:</strong> <span>{{ order.phone_number }}</span>
+                    </p>
+                    <p class="order-card__text">
+                        <strong>Город:</strong> <span>{{ order.city }}</span>
+                    </p>
+                    <p class="order-card__text">
+                        <strong>Адрес:</strong> <span>{{ order.address }}</span>
+                    </p>
+                </div>
             </div>
+            <hr>
+
         </div>
 
-        {{ order }}
     </div>
 </template>
 <script>
@@ -32,7 +57,7 @@ export default {
     methods: {
         async getOrders() {
             await axios
-                .get("http://127.0.0.1:8000/api/v1/order/",
+                .get("/api/v1/order/",
                 {
                     withCredentials: true
                 })
@@ -66,5 +91,25 @@ export default {
     letter-spacing: 0.1px;
 }
 .profile-card {
+}
+
+.order-card__wrapper {
+    display: flex;
+    column-gap: 100px;
+    margin: 20px 0;
+}
+
+.order-card__title {
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+.order-card__product-card {
+    margin-bottom: 20px;
+}
+.order-card__price {
+    margin-top: 5px;
+}
+.order-card__text {
+    margin-top: 5px;
 }
 </style>

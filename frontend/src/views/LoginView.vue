@@ -55,7 +55,7 @@ export default {
                     this.error = false
                     this.status = response.data.message
                     this.$emit('detail')
-                    this.$router.push('/')
+                    this.$router.push('/profile')
                     // this.$forceUpdate();
                 })
                 .catch(error => {
