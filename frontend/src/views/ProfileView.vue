@@ -1,7 +1,7 @@
 <template lang="en">
     <div class="profile-wrapper">
         <h1 class="profile-title">
-            Заказы
+            Ваши заказы
         </h1>
 
         <div class="order-card" v-for="order in orders" v-bind:key="order.id">
@@ -11,8 +11,15 @@
                         <strong>Заказ №{{ order.id }}</strong>
                     </p>
                     <div class="order-card__product-card" v-for="product in order.products" v-bind:key="product.id">
-                        <router-link :to="'/product/' + product.id" class="order-card__quantity">{{ product.name }} <span>Количество: {{ product.quantity }}</span></router-link>
-                        <p class="order-card__price">Цена: {{ product.price }}</p>
+                        <div class="order-card__product-wrapper">
+                            <div class="order-card__product-image">
+                                <img :src="product.thumbnail" alt="thumbnail" width='100'>
+                            </div>
+                            <div class="order-card__product-info">
+                                <router-link :to="'/product/' + product.id" class="order-card__name">{{ product.category.name }} {{ product.name }} </router-link><span class="order-card__quantity">Количество: {{ product.quantity }}</span>
+                                <p class="order-card__price">Цена: {{ product.price }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="order-card__info">
@@ -51,8 +58,10 @@ export default {
             orders: {}
         }
     },
-    mounted() {
+    created() {
         this.getOrders()
+        this.$emit('check-login-profile')
+
     },
     methods: {
         async getOrders() {
@@ -67,6 +76,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error)
+
                 })
         }
     },
@@ -90,26 +100,55 @@ export default {
     color: #151528;
     letter-spacing: 0.1px;
 }
-.profile-card {
+
+
+.order-card__name {
+    text-decoration: none;
+    color: blue;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .order-card__wrapper {
     display: flex;
     column-gap: 100px;
     margin: 20px 0;
+    flex-wrap: wrap;
 }
 
 .order-card__title {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     font-size: 20px;
 }
 .order-card__product-card {
     margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 .order-card__price {
     margin-top: 5px;
 }
+.order-card__product-image {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+}
 .order-card__text {
     margin-top: 5px;
+}
+.order-card__product-wrapper {
+    display: flex;
+    gap: 10px;
+}
+.order-card__product-info {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
 }
 </style>

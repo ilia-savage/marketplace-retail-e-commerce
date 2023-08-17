@@ -1,6 +1,7 @@
-from rest_framework.serializers import ModelSerializer, ReadOnlyField
+from rest_framework.serializers import ModelSerializer, ReadOnlyField, ImageField
 
 from .models import Order, ProductOrder
+from api.serializers import CategorySerializer
 
 
 class ProductOrderSerializer(ModelSerializer):
@@ -8,6 +9,8 @@ class ProductOrderSerializer(ModelSerializer):
     name = ReadOnlyField(source="product.name")
     price = ReadOnlyField(source="product.price")
     discount = ReadOnlyField(source="product.discount")
+    thumbnail = ImageField(source="product.thumbnail", read_only=True)
+    category = CategorySerializer(source="product.category")
 
     class Meta:
         model = ProductOrder
@@ -16,13 +19,15 @@ class ProductOrderSerializer(ModelSerializer):
             'id', 
             'name',
             'price',
+            'thumbnail',
             'discount',
-            'quantity'
+            'quantity',
+            'category'
             ]
         
 
 class OrderSerializer(ModelSerializer):
-    products = ProductOrderSerializer(source="productorder_set", many=True)
+    products = ProductOrderSerializer(source="productorder_set", many=True, read_only=True)
     class Meta:
         model = Order
         fields = '__all__'

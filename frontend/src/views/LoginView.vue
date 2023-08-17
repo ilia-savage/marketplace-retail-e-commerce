@@ -54,8 +54,7 @@ export default {
                     console.log(response.data)
                     this.error = false
                     this.status = response.data.message
-                    this.$emit('detail')
-                    this.$router.push('/profile')
+                    this.$emit('detail-login')
                     // this.$forceUpdate();
                 })
                 .catch(error => {

@@ -49,9 +49,9 @@
     </div>
     <main class="main">
       <div class="_container">
-        <router-view v-if="user" v-on:detail="detail" v-on:check-login="checkLogin"/>
+        <router-view v-if="user" v-on:detail="detail" v-on:detail-login="detailLogin" v-on:check-login="checkLogin" v-on:check-login-profile="checkLoginProfile"/>
 
-        <router-view v-else v-on:detail="detail" v-on:check-login="checkLogin"/>
+        <router-view v-else v-on:detail="detail" v-on:detail-login="detailLogin" v-on:check-login="checkLogin" v-on:check-login-profile="checkLoginProfile"/>
 
       </div>
     </main>
@@ -94,6 +94,32 @@ export default {
       if (this.user != '') {
           this.$router.push('/')
       }
+    },
+    checkLoginProfile() {
+      console.log(this.user)
+      if (this.user == '') {
+          this.$router.push('/')
+      }
+    },
+    async detailLogin() {
+      await axios
+      .get(`/api/v1/`,
+      {
+          withCredentials: true,
+      }
+      )
+      .then(response => {
+          this.user = response.data
+          this.anonymous = false
+          this.forceRerender()
+          console.log(response.data)
+          console.log("im here")
+      })
+      .catch(error => {
+          console.log(error)
+      })
+
+      this.$router.push('/profile')
     },
     async detail() {
       await axios

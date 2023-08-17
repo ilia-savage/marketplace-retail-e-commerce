@@ -101,7 +101,7 @@ export default {
             quantity: 1
         }
     },
-    mounted() {
+    created() {
         this.getProduct()
         this.getReviews()
     },
