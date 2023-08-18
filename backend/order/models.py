@@ -24,9 +24,9 @@ class Order(models.Model):
 
 
 class ProductOrder(models.Model):
-    product =  models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product =  models.ForeignKey(Product, null=True, on_delete=models.PROTECT)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
     quantity = models.IntegerField(default=1)
 
-    def __str__(self):
-        return f"Продукт - {self.product.name}, заказ - №{self.order.id}"
+    # def __str__(self):
+    #     return f"Продукт - {self.product.name}, заказ - №{self.order.id}"

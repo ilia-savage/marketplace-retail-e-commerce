@@ -10,7 +10,7 @@ class ProductOrderSerializer(ModelSerializer):
     price = ReadOnlyField(source="product.price")
     discount = ReadOnlyField(source="product.discount")
     thumbnail = ImageField(source="product.thumbnail", read_only=True)
-    category = CategorySerializer(source="product.category")
+    category = CategorySerializer(source="product.category", read_only=True)
 
     class Meta:
         model = ProductOrder
