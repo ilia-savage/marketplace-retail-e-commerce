@@ -9,6 +9,7 @@ import RegisterView from '../views/RegisterView.vue'
 import CategoryView from '../views/CategoryView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import CheckoutView from '../views/CheckoutView.vue' 
+import SuccessView from '../views/SuccessView.vue'
 
 const routes = [
   {
@@ -63,6 +64,11 @@ const routes = [
     path: '/cart/checkout',
     name: 'checkout',
     component: CheckoutView
+  },
+  {
+    path: '/success',
+    name: 'success',
+    component: SuccessView
   }
 ]
 
