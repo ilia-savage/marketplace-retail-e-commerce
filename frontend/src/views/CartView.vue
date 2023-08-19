@@ -1,17 +1,17 @@
 <template lang="en">
-    <div class="page-cart">
-        <div class="columns is-multiline">
-            <div class="column is-12">
-                <h1 class="title">Cart</h1>
+    <div class="cart-page">
+        <div class="cart-page__wrapper">
+            <div class="cart-page__title">
+                <h1 class="title">Корзина</h1>
             </div>
             <div class="column is-12 box">
                 <table class="table is-fullwidth" v-if="cartTotalLength">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
+                            <th>Товар</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Общая стоимость</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -32,13 +32,14 @@
                 <p v-else>You don't have any products in your cart...</p>
             </div>
             <div class="column is-12 box">
-                <h2 class="subtitle">Summary</h2>
+                <h2 class="cart-page__summary-title">Стоимость</h2>
 
-                <strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
+                <p class="cart-page__price-summary"><strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} товаров</p>
 
                 <hr>
-
-                <router-link to="/cart/checkout" class="button is-dark">Proceed to checkout</router-link>
+                <div class="cart-page__button-wrapper">
+                    <router-link to="/cart/checkout" class="cart-page__checkout-link">Перейти к оформлению</router-link>
+                </div>
             </div>
         </div>
 
@@ -100,5 +101,77 @@ export default {
 }
 </script>
 <style lang="scss">
-    
+table {
+	width: 100%;
+	border: none;
+	margin-bottom: 20px;
+	border-collapse: separate;
+}
+table thead th {
+	font-weight: bold;
+	text-align: left;
+	border: none;
+	padding: 10px 15px;
+	background: #EDEDED;
+	font-size: 14px;
+	border-top: 1px solid #ddd;
+}
+table tr th:first-child, table tr td:first-child {
+	border-left: 1px solid #ddd;
+}
+table tr th:last-child, table tr td:last-child {
+	border-right: 1px solid #ddd;
+}
+table thead tr th:first-child {
+	border-radius: 20px 0 0 0;
+}
+table thead tr th:last-child {
+	border-radius: 0 20px 0 0;
+}
+table tbody td {
+	text-align: left;
+	border: none;
+	padding: 10px 15px;
+	font-size: 14px;
+	vertical-align: top;
+}
+table tbody tr:nth-child(even) {
+	background:#EDEDED;
+
+}
+table tbody tr:last-child td{
+	border-bottom: 1px solid #ddd;
+}
+table tbody tr:last-child td:first-child {
+	border-radius: 0 0 0 20px;
+}
+table tbody tr:last-child td:last-child {
+	border-radius: 0 0 20px 0;
+}
+
+.cart-page {
+    &__title {
+        font-size: 30px;
+        font-weight: 700;
+        // text-align: center;
+        // margin-top: 20px;
+        margin-bottom: 15px;
+        margin-top: 20px;
+        color: #151528;
+        letter-spacing: 0.1px;
+    }
+}
+.cart-page__summary-title {
+    text-align: end;
+}
+.cart-page__price-summary {
+    text-align: end;
+
+}
+.cart-page__button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+.cart-page__checkout-link {
+}
 </style>
