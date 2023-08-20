@@ -1,30 +1,33 @@
 <template lang="en">
     <div class="checkout-page-wrapper">
-        <h1 class="checkout-page-title">Вход</h1>
+        <h1 class="checkout-page-title">Оформление</h1>
         <p v-show="error">error</p>
         <div class="checkout-wrapper">
             <div class="checkout-wrapper__form">
-                <label class="checkout-wrapper__label" for="email">E-mail</label>
-                <input class="checkout-wrapper__input" type="email" placeholder="E-mail" id="email" v-model="email" autocomplete="email" required>
+                <label class="checkout-wrapper__label" for="name">Имя</label>
+                <input class="checkout-wrapper__input" type="text" placeholder="Введите ваше имя" id="name" v-model="name" required>
                 <br>
-                <label class="checkout-wrapper__label" for="password">Пароль</label>
-                <input class="checkout-wrapper__input" type="password" placeholder="Пароль" id="password" v-model="password" autocomplete="current-password" required> 
+                <label class="checkout-wrapper__label" for="last_name">Фамилия</label>
+                <input class="checkout-wrapper__input" type="text" placeholder="Введите вашу фамилию" id="last_name" v-model="last_name" required>
+                <br>
+                <label class="checkout-wrapper__label" for="phone">Номер телефона</label>
+                <input class="checkout-wrapper__input" type="text" placeholder="Введите ваш номер телефона" id="phone" v-model="number" required>
+                <br>
+                <label class="checkout-wrapper__label" for="city">Город</label>
+                <input class="checkout-wrapper__input" type="text" placeholder="Город" id="city" v-model="city" required>
+                <br>
+                <label class="checkout-wrapper__label" for="address">Адрес</label>
+                <input class="checkout-wrapper__input" type="text" placeholder="Ваш адрес" id="address" v-model="address" required>
+                <br>
+                
                 <div class="button-wrapper">
-                    <button class="checkout-wrapper__checkout-button" @click="login()">
+                    <button class="checkout-wrapper__checkout-button" @click="sendOrder()">
                         <img class="checkout-wrapper__checkout-image" src="@/assets/img/login-button.svg" alt="checkout-button" width="150">
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="checkout-wrapper">
-        <input type="text" placeholder="Имя" v-model="name">
-        <input type="text" placeholder="Фамилия" v-model="last_name">
-        <input type="text" placeholder="Номер телефона" v-model="number">
-        <input type="text" placeholder="Город" v-model="city">
-        <input type="text" placeholder="Адрес" v-model="address">
-    </div>
-    <button @click="sendOrder()">К оплате</button>
 </template>
 <script>
 import axios from 'axios';
@@ -75,6 +78,8 @@ export default {
                 })
                 .then(response => {
                     console.log(response)
+                    this.$store.commit('clearCart')
+                    this.$emit("cart-rerender")
                     this.$router.push('/success')
                 })
                 .catch(error => {
@@ -89,7 +94,6 @@ export default {
     background-color: white;
     margin: 0 auto;
     max-width: 700px;
-    height: 400px;
     box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.2);
     border-radius: 5px;
     padding: 30px;

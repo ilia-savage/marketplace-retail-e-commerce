@@ -4,8 +4,8 @@
             <div class="cart-page__title">
                 <h1 class="title">Корзина</h1>
             </div>
-            <div class="column is-12 box">
-                <table class="table is-fullwidth" v-if="cartTotalLength">
+            <div class="column is-12 box" v-if="cartTotalLength">
+                <table class="table is-fullwidth" >
                     <thead>
                         <tr>
                             <th>Товар</th>
@@ -28,20 +28,22 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="column is-12 box">
+                    <h2 class="cart-page__summary-title">Стоимость</h2>
 
-                <p v-else>You don't have any products in your cart...</p>
-            </div>
-            <div class="column is-12 box">
-                <h2 class="cart-page__summary-title">Стоимость</h2>
+                    <p class="cart-page__price-summary"><strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} товаров</p>
 
-                <p class="cart-page__price-summary"><strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} товаров</p>
-
-                <hr>
-                <div class="cart-page__button-wrapper">
-                    <router-link to="/cart/checkout" class="cart-page__checkout-link">Перейти к оформлению</router-link>
+                    <hr>
+                    <div class="cart-page__button-wrapper">
+                        <router-link to="/cart/checkout" class="cart-page__checkout-link">Перейти к оформлению</router-link>
+                    </div>
                 </div>
             </div>
+            <div class="no-items" v-else>
+                Корзина пуста...
+            </div>
         </div>
+        
 
     </div>
 </template>
@@ -150,6 +152,12 @@ table tbody tr:last-child td:last-child {
 }
 
 .cart-page {
+    background-color: white;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.2);
+    border-radius: 5px;
+    padding: 30px;
+    padding-left: 80px;
+    margin-top: 30px;
     &__title {
         font-size: 30px;
         font-weight: 700;

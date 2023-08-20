@@ -33,9 +33,9 @@
                     <img src="@/assets/img/login.svg" alt="login" class="icon__image">
                     <p class="icon__title">{{ user.name }}</p>
                 </router-link>
-                <router-link to="/cart" class="icons__wrapper icon">
+                <router-link to="/cart" class="icons__wrapper icon" :key="cartReload">
                     <img src="@/assets/img/cart.svg" alt="cart" class="icon__image">
-                    {{ cartTotalLength }}
+                    <p class="icon__quantity">{{ cartTotalLength }}</p>
                     <p class="icon__title">Корзина</p>
                 </router-link>
                 
@@ -49,9 +49,9 @@
     </div>
     <main class="main">
       <div class="_container">
-        <router-view v-if="user" v-on:detail="detail" v-on:detail-login="detailLogin" v-on:check-login="checkLogin" v-on:check-login-profile="checkLoginProfile"/>
+        <router-view v-if="user" v-on:detail="detail" v-on:detail-login="detailLogin" v-on:check-login="checkLogin" v-on:check-login-profile="checkLoginProfile" v-on:cart-rerender="cartRerender"/>
 
-        <router-view v-else v-on:detail="detail" v-on:detail-login="detailLogin" v-on:check-login="checkLogin" v-on:check-login-profile="checkLoginProfile"/>
+        <router-view v-else v-on:detail="detail" v-on:detail-login="detailLogin" v-on:check-login="checkLogin" v-on:check-login-profile="checkLoginProfile" v-on:cart-rerender="cartRerender"/>
 
       </div>
     </main>
@@ -74,6 +74,7 @@ export default {
       user: '',
       anonymous: true,
       loginKey: 0,
+      cartReload: 0,
       cart: {
         items: []
       }
@@ -141,17 +142,27 @@ export default {
     // force rerender login element
     forceRerender () {
       this.loginKey += 1
+    },
+    cartRerender () {
+      console.log('rerender')
+      this.cart = {
+        "items": []
+      }
     }
   },
   computed: {
     cartTotalLength() {
-      let totalLength = 0
 
+      let length = 0
+      console.log('cart', this.cart.items.length)
+      if (this.cart.items.length == 0) {
+        return 0
+      }
       for (let i = 0; i < this.cart.items.length; i++) {
-        totalLength += this.cart.items[i].quantity
+        length += this.cart.items[i].quantity
       }
 
-      return totalLength
+      return length
     }
   }
 }
@@ -302,6 +313,12 @@ header {
             &__image {
                 height: 50px;
                 
+            }
+            &__title {
+              text-align: center;
+            }
+            &__quantity {
+              text-align: center;
             }
         }
     }

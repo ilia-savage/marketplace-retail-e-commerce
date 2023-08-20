@@ -35,6 +35,10 @@ class OrderCreateAPIView(generics.CreateAPIView):
         data = request.data
         """ Taking products field out of data to create ProductOrders"""
         products = data.pop("products")
+
+        if len(products) == 0:
+            return Response("No products selected", status=status.HTTP_400_BAD_REQUEST)
+        
         user_data = get_user(request)
         user = User.objects.get(id=user_data['id'])
 
@@ -47,7 +51,6 @@ class OrderCreateAPIView(generics.CreateAPIView):
             #     product["order"] = order_serializer.data
 
             for product in products:
-
                 product_order_serializer = ProductOrderSerializer(data=product)
                 product_order_serializer.is_valid(raise_exception=True)
                 product_order_serializer.save(order=order_object,
