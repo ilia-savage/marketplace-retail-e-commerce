@@ -145,9 +145,8 @@ export default {
     },
     cartRerender () {
       console.log('rerender')
-      this.cart = {
-        "items": []
-      }
+      this.cart = this.$store.state.cart
+
     }
   },
   computed: {
