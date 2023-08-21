@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.utils import IntegrityError
 
 from rest_framework import generics
 from rest_framework.response import Response
@@ -30,6 +31,7 @@ class OrderListAPIVIew(generics.ListAPIView):
 
 class OrderCreateAPIView(generics.CreateAPIView):
     serializer_class = OrderSerializer
+    authentication_classes = ()
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -39,8 +41,23 @@ class OrderCreateAPIView(generics.CreateAPIView):
         if len(products) == 0:
             return Response("No products selected", status=status.HTTP_400_BAD_REQUEST)
         
-        user_data = get_user(request)
-        user = User.objects.get(id=user_data['id'])
+        
+
+        """ If user is not registered, we register them ourselves """
+        try:
+            user_data = get_user(request)
+            user = User.objects.get(id=user_data['id'])
+        except:
+            try:
+                user = User.objects.create(name=data['name'],
+                                            last_name=data['last_name'],
+                                            username=data['email'],
+                                            phone_number=data['phone_number'],
+                                            is_active=False,
+                                            )
+                
+            except IntegrityError:
+                user = User.objects.get(username=data['email'])
 
         serializer = OrderSerializer(data=data)
 

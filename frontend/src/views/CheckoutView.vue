@@ -1,6 +1,6 @@
 <template lang="en">
     <div class="checkout-page-wrapper">
-        <h1 class="checkout-page-title">Оформление</h1>
+        <h1 class="checkout-page-title">Оформление заказа</h1>
         <p v-show="error">error</p>
         <div class="checkout-wrapper">
             <div class="checkout-wrapper__form">
@@ -10,15 +10,20 @@
                 <label class="checkout-wrapper__label" for="last_name">Фамилия</label>
                 <input class="checkout-wrapper__input" type="text" placeholder="Введите вашу фамилию" id="last_name" v-model="last_name" required>
                 <br>
+                <label class="checkout-wrapper__label" for="email">E-mail</label>
+                <input class="checkout-wrapper__input" type="email" placeholder="Ваш email" id="email" v-model="email" required>
+                <br>
                 <label class="checkout-wrapper__label" for="phone">Номер телефона</label>
                 <input class="checkout-wrapper__input" type="text" placeholder="Введите ваш номер телефона" id="phone" v-model="number" required>
                 <br>
+                
                 <label class="checkout-wrapper__label" for="city">Город</label>
                 <input class="checkout-wrapper__input" type="text" placeholder="Город" id="city" v-model="city" required>
                 <br>
                 <label class="checkout-wrapper__label" for="address">Адрес</label>
                 <input class="checkout-wrapper__input" type="text" placeholder="Ваш адрес" id="address" v-model="address" required>
                 <br>
+                
                 
                 <div class="button-wrapper">
                     <button class="checkout-wrapper__checkout-button" @click="sendOrder()">
@@ -38,6 +43,7 @@ export default {
             name: '',
             last_name: '',
             number: '',
+            email: '',
             city: '',
             address: '',
             cart: {
@@ -70,6 +76,7 @@ export default {
                     "name": this.name,
                     "last_name": this.last_name,
                     "phone_number": this.number,
+                    "email": this.email,
                     "city": this.city,
                     "address": this.address
                 },

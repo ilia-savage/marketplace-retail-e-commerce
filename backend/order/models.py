@@ -13,6 +13,7 @@ class Order(models.Model):
     phone_number = PhoneNumberField()
     city = models.CharField()
     address = models.CharField()
+    email = models.EmailField(default=None, null=True)
     products = models.ManyToManyField(Product, through="ProductOrder")
 
     def __str__(self):
