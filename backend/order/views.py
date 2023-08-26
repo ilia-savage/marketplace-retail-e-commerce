@@ -1,3 +1,5 @@
+from random import randint
+
 from django.shortcuts import render
 from django.db.utils import IntegrityError
 
@@ -8,6 +10,7 @@ from rest_framework import status
 from .models import Order
 from user.models import User
 from product.models import Product
+from user.tasks import send_email
 
 from .serializers import OrderSerializer
 from .serializers import ProductOrderSerializer
@@ -49,15 +52,19 @@ class OrderCreateAPIView(generics.CreateAPIView):
             user = User.objects.get(id=user_data['id'])
         except:
             try:
+                auth_code = str(randint(100000, 999999))
                 user = User.objects.create(name=data['name'],
                                             last_name=data['last_name'],
                                             username=data['email'],
                                             phone_number=data['phone_number'],
                                             is_active=False,
-                                            )
+                                            auth_code=auth_code)
+                send_email("[ILTECH] - Код для входа в аккаунт", f"Ваш код подтверждения: {auth_code}")
                 
             except IntegrityError:
                 user = User.objects.get(username=data['email'])
+                send_email("[ILTECH] - Код для входа в аккаунт", f"Ваш код подтверждения: {auth_code}")
+
 
         serializer = OrderSerializer(data=data)
 

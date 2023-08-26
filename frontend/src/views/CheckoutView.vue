@@ -87,7 +87,23 @@ export default {
                     console.log(response)
                     this.$store.commit('clearCart')
                     this.$emit("cart-rerender")
-                    this.$router.push('/success')
+
+                    // checks if user is authenticated
+                    axios
+                    .get(`/api/v1/`,
+                    {
+                        withCredentials: true,
+                    }
+                    )
+                    .then(response => {                        
+                        console.log(response.data)
+                        this.$router.push('/success')
+                        
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.$router.push('/auth')
+                    })
                 })
                 .catch(error => {
                     console.log(error)
