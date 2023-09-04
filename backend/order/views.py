@@ -52,6 +52,16 @@ class OrderCreateAPIView(generics.CreateAPIView):
             user = User.objects.get(id=user_data['id'])
         except:
             try:
+                # user_data = get_user(request)
+                # user = User.objects.get(id=user_data['id'])
+                user = User.objects.get(username=data["email"])
+                auth_code = str(randint(100000, 999999))
+                user.auth_code = auth_code
+                print(user, 'df')
+                user.save()
+
+            except:
+                # try:
                 auth_code = str(randint(100000, 999999))
                 user = User.objects.create(name=data['name'],
                                             last_name=data['last_name'],
@@ -60,10 +70,10 @@ class OrderCreateAPIView(generics.CreateAPIView):
                                             is_active=False,
                                             auth_code=auth_code)
                 send_email("[ILTECH] - Код для входа в аккаунт", f"Ваш код подтверждения: {auth_code}")
-                
-            except IntegrityError:
-                user = User.objects.get(username=data['email'])
-                send_email("[ILTECH] - Код для входа в аккаунт", f"Ваш код подтверждения: {auth_code}")
+                    
+                # except IntegrityError:
+                #     user = User.objects.get(username=data['email'])
+                #     send_email("[ILTECH] - Код для входа в аккаунт", f"Ваш код подтверждения: {auth_code}")
 
 
         serializer = OrderSerializer(data=data)

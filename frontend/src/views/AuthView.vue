@@ -8,7 +8,7 @@
                 <label class="auth-wrapper__label" for="code">Код</label>
                 <input class="auth-wrapper__input" type="text" placeholder="Пример: 123456" id="code" v-model="code" required>
                 <div class="button-wrapper">
-                    <button class="auth-wrapper__auth-button" @click="login()">
+                    <button class="auth-wrapper__auth-button" @click="auth()">
                         <img class="auth-wrapper__auth-image" src="@/assets/img/login-button.svg" alt="auth-button" width="150">
                     </button>
                 </div>
@@ -17,10 +17,38 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
             code: ''
+        }
+    },
+    created() {
+        console.log('check')
+        this.$emit('check-login')
+    },
+    methods: {
+        async auth() {
+            console.log(this.$store.state.email)
+            await axios
+                .post('/api/v1/login/', {
+                    "username": this.$store.state.email,
+                    "code": this.code
+                },
+                {
+                    withCredentials: true
+                }
+                )
+                .then(response => {
+                    console.log(response)
+                    this.$emit('detail-login')
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
     },
 }

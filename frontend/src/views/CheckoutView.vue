@@ -70,7 +70,7 @@ export default {
     },
     methods: {
         async sendOrder() {
-            axios
+            await axios
                 .post('/api/v1/order/create/', {
                     "products": this.products,
                     "name": this.name,
@@ -102,6 +102,7 @@ export default {
                     })
                     .catch(error => {
                         console.log(error)
+                        this.$store.state.email = this.email
                         this.$router.push('/auth')
                     })
                 })

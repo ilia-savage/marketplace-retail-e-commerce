@@ -49,13 +49,32 @@ class LoginView(APIView):
 
     def post(self, request):
         email = request.data['username']
-        password = request.data['password']
+        try:
+            password = request.data['password']
+        except KeyError:
+            password = None
+        try:
+            code = request.data['code']
+        except KeyError:
+            code = None
+        print(code)
 
         user = User.objects.filter(username=email).first()
 
-        if (user is None) or (not user.check_password(password)):
+        if (user is None):
+            raise AuthenticationFailed("Incorrect email or password")
+        if password != None and (not user.check_password(password)):
             raise AuthenticationFailed("Incorrect email or password")
         
+        if code != None:
+            if code == user.auth_code:
+                user.is_active = True
+                user.save()
+            else:
+                raise AuthenticationFailed("Incorrect credentials")
+            
+
+
         print(user.is_active)
         if user.is_active == False:
             raise AuthenticationFailed("User is not verified")
@@ -64,7 +83,7 @@ class LoginView(APIView):
             'id': user.id,
             'name': user.name,
             'is_staff': user.is_staff,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10080),
             'iat': datetime.datetime.utcnow()
         }
         
