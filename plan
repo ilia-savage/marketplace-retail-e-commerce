@@ -1,10 +1,9 @@
 --DONE Add specs to products
 --DONE Show products on frontend by category
---Show products on frontend by popularity
 --DONE Finish category page
---Create login and register pages
---create an order model
---create a user page with active and finished orders
+--Almost DONE Create login and register pages
+--DONE create an order model
+--DONE create a user page with active and finished orders
 --DONE call detail() from login page and force reload header
---Remake frontend layout
-
+--Almost DONE Remake frontend layout
+--Show products on frontend by popularity
