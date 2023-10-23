@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'category',
     'news',
     'order',
+    "ad",
     "phonenumber_field",
 ]
 
@@ -193,3 +194,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis:6379/0",
+        "OPTIONS": {
+            "db": "1",
+        }
+    }
+}
