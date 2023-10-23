@@ -8,11 +8,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Order(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    name = models.CharField()
-    last_name = models.CharField()
+    name = models.CharField(max_length=1000)
+    last_name = models.CharField(max_length=1000)
     phone_number = PhoneNumberField()
-    city = models.CharField()
-    address = models.CharField()
+    city = models.CharField(max_length=1000)
+    address = models.CharField(max_length=1000)
     email = models.EmailField(default=None, null=True)
     products = models.ManyToManyField(Product, through="ProductOrder")
 

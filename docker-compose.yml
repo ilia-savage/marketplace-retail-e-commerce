@@ -54,7 +54,29 @@ services:
     depends_on:
       - redis
       - database
+    environment:
+      - DB_HOST=database
+      - DB_NAME=dbname
+      - DB_USER=dbuser
+      - DB_PASS=pass
 
+  celery-beat:
+    build: 
+      context: ./backend
+    hostname: celery-beat
+    container_name: celery-beat
+    entrypoint: celery
+    command: -A celery_app.app beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - ./backend:/usr/src/app
+    links:
+      - worker
+      - redis
+      - database
+    depends_on:
+      - worker
+      - redis
+      - database
     environment:
       - DB_HOST=database
       - DB_NAME=dbname
@@ -71,6 +93,8 @@ services:
       - ./backend:/usr/src/app
     links:
       - redis
+      - worker
+      - celery-beat
     depends_on:
       - redis
     ports: 

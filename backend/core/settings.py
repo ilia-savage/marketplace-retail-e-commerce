@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'order',
     "ad",
     "phonenumber_field",
+    "django_celery_beat"
 ]
 
 MIDDLEWARE = [
@@ -194,6 +195,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
 CACHES = {
     "default": {
