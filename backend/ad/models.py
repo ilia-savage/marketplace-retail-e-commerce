@@ -1,7 +1,6 @@
 from collections.abc import Iterable
 from django.db import models
 from product.models import Product
-# Create your models here.
 from django.core.cache import cache
 
 class Ad(models.Model):

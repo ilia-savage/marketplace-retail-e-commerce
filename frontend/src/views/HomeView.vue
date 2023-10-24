@@ -40,8 +40,8 @@
         <p class="product-card__specs"><span v-for="(value, key, index) in product.specs" :key="index">{{  value  }}, </span></p>
         <div class="product-card__wrapper">
           <div class="product-card__price-wrapper">
-            <p class="product-card__price-old">$19999</p>
-            <p class="product-card__price">${{ product.price }} </p>
+            <p class="product-card__price-old">{{ product.price }}</p>
+            <p class="product-card__price">${{ product.final_price }} </p>
           </div>
           <div class="product-card__button-wrapper">
             <a class="product-card__buy-button" href="#">
@@ -220,6 +220,8 @@ main {
   height: 350px;
   min-width: 230px;
 }
-
+.product-card__image-container {
+  width: 215px;
+}
 
 </style>

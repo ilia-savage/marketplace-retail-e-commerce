@@ -15,10 +15,12 @@ import environ, os
 
 from django.core.exceptions import ImproperlyConfigured
 
-env = environ.Env()
-environ.Env.read_env()
+# env = environ.Env()
+# environ.Env.read_env()
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "mailhog"
+EMAIL_PORT = 1025
 
 # try:
 # EMAIL_HOST = env("EMAIL_HOST")
@@ -27,9 +29,10 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # print(EMAIL_HOST)
 # except ImproperlyConfigured:
 #     print('[WARNING] .env file not found')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
