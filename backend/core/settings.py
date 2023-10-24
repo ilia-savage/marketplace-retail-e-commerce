@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "drf_yasg",
     'rest_framework',
     'corsheaders',
     'user',
@@ -67,7 +68,7 @@ INSTALLED_APPS = [
     'order',
     "ad",
     "phonenumber_field",
-    "django_celery_beat"
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [

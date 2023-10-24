@@ -13,3 +13,6 @@ class CategorySerializer(serializers.Serializer):
     name = serializers.CharField(read_only=True)
     description = serializers.CharField(read_only=True)
     image = serializers.ImageField(read_only=True)
+
+    class Meta: 
+        ref_name = "Category 2"

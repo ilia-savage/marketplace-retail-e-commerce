@@ -16,6 +16,7 @@ services:
       - ./backend:/usr/src/app
     environment:
       - PYTHONUNBUFFERED=1
+      - DJANGO_SETTINGS_MODULE=core.settings
       - DB_HOST=database
       - DB_NAME=dbname
       - DB_USER=dbuser

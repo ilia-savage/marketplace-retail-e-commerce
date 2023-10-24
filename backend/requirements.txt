@@ -1,6 +1,6 @@
 asgiref==3.7.2
 Babel==2.12.1
-Django==4.2.3
+Django==4.1
 django-cors-headers==4.2.0
 django-environ==0.10.0
 django-phonenumber-field==7.1.0
@@ -17,3 +17,6 @@ celery[redis]==5.3.0
 django-celery-beat
 flower==1.2.0 
 requests
+pylint
+pylint-django==2.5.5
+drf-yasg
