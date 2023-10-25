@@ -57,7 +57,6 @@ class LoginView(APIView):
             code = request.data['code']
         except KeyError:
             code = None
-        print(code)
 
         user = User.objects.filter(username=email).first()
 
@@ -66,8 +65,9 @@ class LoginView(APIView):
         if password != None and (not user.check_password(password)):
             raise AuthenticationFailed("Incorrect email or password")
         
+        
         if code != None:
-            if code == user.auth_code:
+            if code == int(user.auth_code):
                 user.is_active = True
                 user.save()
             else:
