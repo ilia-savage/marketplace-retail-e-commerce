@@ -52,7 +52,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# SITE_ID = 1
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.sites',
     "drf_yasg",
     'rest_framework',
     'corsheaders',
@@ -72,8 +73,20 @@ INSTALLED_APPS = [
     "ad",
     "phonenumber_field",
     "django_celery_beat",
+    # 'oauth2_provider',
+    # 'social_django',
+    # 'rest_framework_social_oauth2',
 ]
 
+# SOCIALACCOUNT_PROVIDERS = {
+#     "google": {
+#         "SCOPE": [
+#             "profile",
+#             "email"
+#         ],
+#         "AUTH_PARAMS": {"access_type": "online"}
+#     }
+# }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -146,12 +159,16 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'user.auth.JSONWebTokenAuthentication',
+        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  
+        # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20
 }
 
 
+SOCIAL_AUTH_VK_OAUTH2_KEY = '51778203'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'GMajYdRggvfotuHhz0hb'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -210,3 +227,9 @@ CACHES = {
         }
     }
 }
+
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.accounts.auth_backends.AuthenticationBackend'
+# )
+

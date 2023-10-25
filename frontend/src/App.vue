@@ -58,7 +58,7 @@
 
     <footer class="footer">
       <div class="_container">
-        <p class="has-text-centered"> Copyright (c) 2023</p>
+        <p class="has-text-centered copyright">ILTECH Copyright (c) 2023</p>
       </div>
     </footer>
   </div>
@@ -414,6 +414,7 @@ header {
   display: inline-block;
   width: 80px;
   height: 80px;
+  
 }
 .lds-dual-ring:after {
   content: " ";
@@ -438,6 +439,8 @@ header {
 .is-loading-bar {
   height: 0;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -445,5 +448,24 @@ header {
   &.is-loading {
     height: 80px;
   }
+}
+.app-container {
+  position: relative;
+  min-height: 100vh;
+}
+main {
+  padding-bottom: 14rem;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 7rem;
+  background-color: #333333;
+}
+.copyright {
+  padding-top: 45px ;
+  text-align: center;
+  color: white;
 }
 </style>

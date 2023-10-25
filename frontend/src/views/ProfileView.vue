@@ -1,5 +1,12 @@
 <template lang="en">
     <div class="profile-wrapper">
+        <div class="profile-avatar-wrapper">
+            <img class="profile-avatar" src="@/assets/img/avatar.webp" alt="avatar" width="150">
+        </div>
+        <p class="profile-username">{{ user.name }}</p>
+        <div class="profile-button-wrapper">
+            <button @click="logout()" class="profile-logout-button">Выйти из аккаунта</button>
+        </div>
         <h1 class="profile-title">
             Ваши заказы
         </h1>
@@ -55,13 +62,14 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            orders: {}
+            orders: {},
+            user: ''
         }
     },
     created() {
         this.getOrders()
+        this.detail()
         this.$emit('check-login-profile')
-
     },
     methods: {
         async getOrders() {
@@ -78,8 +86,41 @@ export default {
                     console.log(error)
 
                 })
+        },
+        async detail() {
+            await axios
+            .get(`/api/v1/`,
+            {
+                withCredentials: true,
+            }
+            )
+            .then(response => {
+                this.user = response.data
+                this.anonymous = false
+                this.forceRerender()
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        },
+        async logout() {
+            await axios
+            .get(`/api/v1/logout/`,
+            {
+                withCredentials: true,
+            }
+            )
+            .then(response => {
+                this.$router.go()
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         }
     },
+    
 }
 </script>
 <style lang="scss">
@@ -150,5 +191,48 @@ export default {
     flex-direction: column;
     // align-items: center;
     justify-content: center;
+}
+.profile-logout-button{
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.1em 0.1em 0;
+    border:0.16em solid rgba(255,255,255,0);
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+    background-color:#f14e4e;
+    cursor: pointer;
+    @media all and (max-width:30em){  
+        display:block;
+        margin:0.2em auto;
+    }
+}
+.profile-logout-button:hover{
+    border-color: rgba(255,255,255,1);
+}
+
+.profile-username {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.profile-avatar-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.profile-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.order-card__products {
+    width: 480px;
 }
 </style>

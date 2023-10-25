@@ -23,8 +23,6 @@
                 <label class="checkout-wrapper__label" for="address">Адрес</label>
                 <input class="checkout-wrapper__input" type="text" placeholder="Ваш адрес" id="address" v-model="address" required>
                 <br>
-                
-                
                 <div class="button-wrapper">
                     <button class="checkout-wrapper__checkout-button" @click="sendOrder()">
                         <img class="checkout-wrapper__checkout-image" src="@/assets/img/login-button.svg" alt="checkout-button" width="150">

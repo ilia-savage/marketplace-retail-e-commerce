@@ -158,6 +158,7 @@ table tbody tr:last-child td:last-child {
     padding: 30px;
     padding-left: 80px;
     margin-top: 30px;
+    min-height: 300px;
     &__title {
         font-size: 30px;
         font-weight: 700;

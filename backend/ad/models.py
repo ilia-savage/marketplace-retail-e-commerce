@@ -1,4 +1,3 @@
-from collections.abc import Iterable
 from django.db import models
 from product.models import Product
 from django.core.cache import cache
@@ -12,3 +11,9 @@ class Ad(models.Model):
         cache.delete('ad_product')
         cache.delete('ad_image')
         return super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        cache.delete("ad_id")
+        cache.delete('ad_product')
+        cache.delete('ad_image')
+        return super().delete(*args, **kwargs)

@@ -20,3 +20,4 @@ requests
 pylint
 pylint-django==2.5.5
 drf-yasg
+django-rest-framework-social-oauth2

@@ -59,6 +59,7 @@ class OrderCreateAPIView(generics.CreateAPIView):
                 user.auth_code = auth_code
                 print(user, 'df')
                 user.save()
+                send_email("[ILTECH] - Код для входа в аккаунт", f"Ваш код подтверждения: {auth_code}")
 
             except:
                 # try:
