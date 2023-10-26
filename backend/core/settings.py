@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import environ, os
 
 from django.core.exceptions import ImproperlyConfigured
+from celery.schedules import crontab
 
 # env = environ.Env()
 # environ.Env.read_env()
@@ -61,9 +63,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'django.contrib.sites',
-    "drf_yasg",
     'rest_framework',
     'corsheaders',
+    'api',
+    
     'user',
     'product',
     'review',
@@ -73,6 +76,7 @@ INSTALLED_APPS = [
     "ad",
     "phonenumber_field",
     "django_celery_beat",
+    "drf_yasg",
     # 'oauth2_provider',
     # 'social_django',
     # 'rest_framework_social_oauth2',
@@ -96,6 +100,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'api.middleware.VisitMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -217,7 +222,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
-
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BEAT_SCHEDULE = {
+    'save_visits_periodically': {
+        'task': 'api.tasks.save_visits', 
+        'schedule': crontab(minute="*/1"),
+    },
+}
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",

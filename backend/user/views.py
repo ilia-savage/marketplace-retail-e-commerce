@@ -73,8 +73,6 @@ class LoginView(APIView):
             else:
                 raise AuthenticationFailed("Incorrect credentials")
             
-
-
         print(user.is_active)
         if user.is_active == False:
             raise AuthenticationFailed("User is not verified")
@@ -82,6 +80,7 @@ class LoginView(APIView):
         payload = {
             'id': user.id,
             'name': user.name,
+            'username': user.username,
             'is_staff': user.is_staff,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10080),
             'iat': datetime.datetime.utcnow()
