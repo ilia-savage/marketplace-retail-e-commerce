@@ -72,12 +72,16 @@ class ProductSearch(APIView):
         query = request.data.get('query', '')
 
         if query:
-            products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            # products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            products = Product.objects.filter(Q(name__icontains=query))
+
             if products:
                 serializer = ProductSerializer(products, many=True)
                 return Response(serializer.data)
 
-            category = Category.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            # category = Category.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            category = Category.objects.filter(Q(name__icontains=query))
+
             category_ids = [item.id for item in category]
 
             products = Product.objects.filter(category__in=category_ids)
