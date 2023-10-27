@@ -206,6 +206,12 @@ header {
     display: flex;
     justify-content: space-between;
     
+
+    @media(max-width: 815px) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
     &__search-bar {
       width: 95%;
       position: relative;
@@ -213,6 +219,10 @@ header {
     &__logo {
         width: 350px;
         justify-self: flex-start;
+        @media(max-width: 815px) {
+          margin-bottom: 20px;
+          width: 200px;
+        }
     }
     &__search-button { 
         position: absolute;

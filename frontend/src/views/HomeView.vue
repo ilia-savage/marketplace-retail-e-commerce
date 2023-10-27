@@ -137,6 +137,10 @@ main {
         // flex-direction: row;
         margin-top: 20px;
 
+        @media(max-width: 815px) {
+          justify-content: center;
+        }
+
         .category-card {
           background-color: white;
           margin: 5px;
@@ -184,7 +188,9 @@ main {
         gap: 22px;
         margin-top: 30px;
         
-        
+        @media(max-width: 815px) {
+          justify-content: center;
+        }
     }
 }
 
