@@ -9,6 +9,7 @@ from .serializers import AdSerializer
 class AdListAPIView(generics.ListAPIView):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
+    permission_classes = ()
     authentication_classes = ()
 
     def get(self, request, *args, **kwargs):

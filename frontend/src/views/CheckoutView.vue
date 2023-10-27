@@ -25,7 +25,7 @@
                 <br>
                 <div class="button-wrapper">
                     <button class="checkout-wrapper__checkout-button" @click="sendOrder()">
-                        <img class="checkout-wrapper__checkout-image" src="@/assets/img/login-button.svg" alt="checkout-button" width="150">
+                        <img class="checkout-wrapper__checkout-image" src="@/assets/img/order.svg" alt="checkout-button" width="150">
                     </button>
                 </div>
             </div>

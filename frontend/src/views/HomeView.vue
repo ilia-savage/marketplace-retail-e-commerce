@@ -1,7 +1,7 @@
 <template>
   <div class="hero-banner">
-    <a href="#" class="hero-banner__link">
-      <img src="@/assets/img/banner.jpg" alt="banner" class="hero-banner__image">
+    <a href="/product/24" class="hero-banner__link">
+      <img src="@/assets/img/ad.png" alt="banner" class="hero-banner__image">
     </a>
   </div>
   <div class="popular-category-wrapper category">
@@ -67,12 +67,14 @@ export default {
     return {
       latestProducts: [],
       categories: [],
+      ad: {},
     }
   },
   components: {
 
   },
   mounted() {
+    // this.getAd()
     this.getLatestProducts();
     this.getCategories();
   },
@@ -87,6 +89,16 @@ export default {
           console.log(error)
         })
     },
+    // async getAd() {
+    //   await axios
+    //     .get('http://127.0.0.1:8000/api/v1/ad/')
+    //     .then(response => {
+    //       console.log(response)
+    //     })
+    //     .catch(error => {
+    //       console.log(error)
+    //     })
+    // },
     async getCategories() {
       await axios
         .get('/api/v1/category/')

@@ -1,35 +1,5 @@
 <template lang="en">
-    <!-- <div class="page-product">
-        <div class="columns is-multiline">
-            <div class="column is-9">
-                <figure class="image mb-6">
-                    <img :src="product.image" alt="product_image">
-                </figure>
-                <h1 class="title">{{ product.name }}</h1>
-
-                <p>{{ product.description }}</p>
-            </div>
-            <div class="column is-3">
-                <h2 class="subtitle">
-                    information
-                </h2>
-                <p><strong>Price:</strong>{{product.price}}</p>
-                <div class="field has-addons mt-6">
-                    <div class="control">
-                        <input type="number" class="input" min="1" v-model="quantity">
-                    </div>
-                    <div class="control">
-                        <a class="button is-dark" @click="addToCart()">
-                            Add to cart
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        
-    </div> -->
-
+    
     <div class="product-page">
         <h1 class="product-page__title">{{ product.name }}</h1>
         
@@ -38,7 +8,6 @@
                 <img class="product-page__image" :src="product.image" alt="image">
             </div>
             <div class="product-page__specs-wrapper">
-                <img src="@/assets/img/rating.svg" alt="rating" class="product-page__rating">
                 <div class="product-page__feature feature" v-for="(value, key, index) in product.specs" v-bind:key="index">
                     <p class="feature__key"><strong>{{ key }}: </strong><span class="feature__value">{{ value }}</span></p>
                 </div>
@@ -237,6 +206,9 @@ export default {
 
                 font-size: 24px;
                 font-weight: 700;
+            }
+            &__text {
+                line-height: 1.4em;
             }
             
         }
