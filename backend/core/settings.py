@@ -77,9 +77,9 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "django_celery_beat",
     "drf_yasg",
-    # 'oauth2_provider',
-    # 'social_django',
-    # 'rest_framework_social_oauth2',
+    'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
 ]
 
 # SOCIALACCOUNT_PROVIDERS = {
@@ -166,6 +166,8 @@ REST_FRAMEWORK = {
         'user.auth.JSONWebTokenAuthentication',
         # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  
         # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
+        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20
@@ -239,8 +241,9 @@ CACHES = {
     }
 }
 
-# AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+#     'rest_framework_social_oauth2.backends.DjangoOAuth2',
 #     'django.contrib.auth.backends.ModelBackend',
-#     'allauth.accounts.auth_backends.AuthenticationBackend'
-# )
+)
 

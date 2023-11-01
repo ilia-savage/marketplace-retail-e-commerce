@@ -28,7 +28,7 @@ class VisitCacheService:
             "user": user,
             "date": formatted_date,
             "url": self.request.path,
-            "os": self.request.META.get("HTTP_USER_AGENT"),
+            "ip": self.request.META.get("REMOTE_ADDR"),
             "browser": self.request.META.get("HTTP_USER_AGENT"),
         }
         return data
@@ -71,7 +71,7 @@ class VisitDataBaseService:
                     user=user,
                     date=data["date"],
                     url=data["url"],
-                    os=data["os"],
+                    ip=data["ip"],
                     browser=data["browser"],
                 )
                 visit.save()

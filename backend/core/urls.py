@@ -40,6 +40,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('auth/', include('rest_framework_social_oauth2.urls')),
     path('api/v1/', include('user.urls')),
     path('api/v1/product/', include('product.urls')),
     path('api/v1/news/', include('news.urls')),
